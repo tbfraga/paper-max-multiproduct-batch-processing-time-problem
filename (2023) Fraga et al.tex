@@ -280,7 +280,70 @@ D_i \leq \textrm{UD}_i \quad \forall i
 D_i \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
 
+This reduced problem can be rewritten in the form:
 
+\begin{equation}
+max \quad T'
+\end{equation}
+
+$s.t.$ \\
+
+\begin{equation}
+T'  \leq \textrm{UD}_i / \textrm{p}_i \quad \forall i
+\end{equation}
+
+So we have that $T'$ will be the smallest of the ratios $\textrm{UD}_i / \textrm{p}_i$ of all products. \\
+
+Once we find the value of $T'$, we can calculate the value of unmet demand for each product after $T'$, $S_i$, through the equations in (22).
+
+\begin{equation}
+S_i = \textrm{UD}_i - \textrm{p}_i * T' \quad \forall i
+\end{equation}
+
+Now we consider that the time interval $T''$ will be used for the production of the quantities that will be stored (in the factory and in the outlets), as well as of the demand not met by the production in the first time interval, $S_i$. 
+
+In this case, we can find $T'''$ by solving the second reduced problem:
+
+\begin{equation}
+max \quad T''
+\end{equation}
+
+$s.t.$ \\
+
+\begin{equation}
+E_i - \textrm{p}_i * T''  = 0 \quad \forall i
+\end{equation}
+
+\begin{equation}
+E_i - S_i \leq \textrm{UO}_i + \textrm{UI}_i \quad \forall i
+\end{equation}
+
+\begin{equation}
+\sum_i {E_i - S_i} \leq \textrm{O} + \textrm{I}
+\end{equation}
+
+\begin{equation}
+E_i \in  \mathbb{Z}^+ \quad \forall i
+\end{equation}
+
+Again, using a little algebra, we can rewrite this reduced problem in the form:
+
+\begin{equation}
+max \quad T''
+\end{equation}
+
+$s.t.$ \\
+
+\begin{equation}
+T'' \leq (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i  \quad \forall i
+\end{equation}
+
+\begin{equation}
+T'' \leq (\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}
+\end{equation}
+
+
+So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value.
 
 \section{Tests and results}
 \label{}
