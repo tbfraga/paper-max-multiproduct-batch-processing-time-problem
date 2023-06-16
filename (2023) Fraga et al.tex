@@ -179,7 +179,7 @@ $O_i$ amount of product $i$ shipped to factory outlets; \\
 
 $I_i$ is the amount of product $i$ that will be stored at the factory; \\
 
-$T$ is the batch processing time.
+$T$ is the batch processing time. \\
 
 We have the problem: \\
 
@@ -342,8 +342,29 @@ T'' \leq (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i  \quad \forall i
 T'' \leq (\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}
 \end{equation}
 
+So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value. \\
 
-So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value.
+So the solution method can be decomposed into 4 steps: \\
+
+step 1: find $T'$, where:
+
+\begin{equation}
+T' = \min {\textrm{UD}_i / \textrm{p}_i}
+\end{equation}
+
+step 2: calculate $S_i$ for all products. \\
+
+step 3: find $T''$, where:
+
+\begin{equation}
+T'' = \min \{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i, (\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}\}
+\end{equation}
+
+step 2: calculate $T$, where: 
+
+\begin{equation}
+T = T' + T''
+\end{equation}
 
 \section{Tests and results}
 \label{}
