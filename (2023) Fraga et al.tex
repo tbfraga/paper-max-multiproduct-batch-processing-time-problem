@@ -349,7 +349,7 @@ So the solution method can be decomposed into 4 steps: \\
 step 1: find $T'$, where:
 
 \begin{equation}
-T' = \min {\textrm{UD}_i / \textrm{p}_i}
+T' = \min_{\forall i} \{\textrm{UD}_i / \textrm{p}_i\}
 \end{equation}
 
 step 2: calculate $S_i$ for all products. \\
@@ -357,7 +357,7 @@ step 2: calculate $S_i$ for all products. \\
 step 3: find $T''$, where:
 
 \begin{equation}
-T'' = \min \{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i, (\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}\}
+T'' = \min \{\min_{\forall i} \{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\},(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}\}
 \end{equation}
 
 step 4: calculate $T$, where: 
@@ -367,7 +367,7 @@ T = T' + T''
 \end{equation}
 
 \begin{equation}
-T = \min {T , Z}
+T = \min \{T , Z\}
 \end{equation}
 
 It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper. \\
@@ -426,7 +426,7 @@ $D_A = 1000g$ e $D_B = 500g$ \\
 
 $E_A = 2300g$ e $E_B = 1700g$ \\
 
-Note that it is not important to know the values of $O_i$ and $I_i$ however these values can be found by solving the indeterminate system of equations:
+Note that it is not important to know the values of $O_i$ and $I_i$ $\forall i$ however these values can be found by taking a solution from the indeterminate system of inequations:
 
 \begin{equation}
 \sum_i{O_i} \leq \textrm{O}
