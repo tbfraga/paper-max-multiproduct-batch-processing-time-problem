@@ -439,6 +439,63 @@ Note that it is not important to know the values of $O_i$ and $I_i$ $\forall i$ 
 \section{Tests and results}
 \label{}
 
+To test the developed model and analytical solution method, we created a solver in C++ and a solver in LINGO (both available at github.com). We tested the solvers developed for the benchmarks presented below. 
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}[c]{c r r r}
+$i$ & 1 & 2 & total \\
+\cline {1-4} \\
+$\textrm{p}_i$ & 60 & 40 & \\
+$\textrm{UD}_i$ & 1000 & 500 & \\
+$\textrm{UO}_i$ & 600 & 600 & 1000 \\
+$\textrm{UI}_i$ & 3000 & 2000 & 3000 \\
+\cline {1-4} \\
+& & $\textrm{Z}$ & 100 \\
+\end{tabular}
+\label{tab:MBPTMP 001}
+\caption{Benchmark MBPTMP 001}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}[c]{c r r r r}
+$i$ & 1 & 2 & 3 & total \\
+\cline {1-5} \\
+$\textrm{p}_i$ & 60 & 40 & 50 \\
+$\textrm{UD}_i$ & 1000 & 500 & 800 \\
+$\textrm{UO}_i$ & 600 & 600 & 600 & 1500 \\
+$\textrm{UI}_i$ & 3000 & 2000 & 1000 & 3500 \\
+\cline {1-5} \\
+& & & $\textrm{Z}$ & 100 \\
+\end{tabular}
+\label{tab:MBPTMP 001}
+\caption{Benchmark MBPTMP 002}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{small}
+\begin{tabular}[c]{c r r r r r r r r r r r }
+$i$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & total \\
+\cline {1-12} \\
+$\textrm{p}_i$ & 60 & 40 & 50 & 40 & 30 & 50 & 60 & 10 & 20 & 40\\
+$\textrm{UD}_i$ & 1000 & 500 & 800 & 500 & 400 & 500 & 2000 & 300 & 500 & 1000 \\
+$\textrm{UO}_i$ & 600 & 600 & 600 & 1500 & 300 & 200 & 500 & 800 & 0 & 200 & 3000 \\
+$\textrm{UI}_i$ & 3000 & 2000 & 1000 & 800 & 3000 & 1000 & 400 & 300 & 200 & 0 & 5000 \\
+\cline {1-12} \\
+& & & & & & & & & & $\textrm{Z}$ & 100 \\
+\end{tabular}
+\label{tab:MBPTMP 001}
+\caption{Benchmark MBPTMP 003}
+\end{small}
+\end{center}
+\end{table}
+
+Table X presents a comparison of the results obtained by applying the analytical method and the LINGO solver for the solution of the previously presented benchmarks.
+
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
 %% \appendix
