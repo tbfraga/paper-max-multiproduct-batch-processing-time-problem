@@ -150,7 +150,7 @@ multiproduct batch \sep processing time maximization
 
 The multiproduct batch processing time maximization problem arises when a set of different products are processed simultaneously in the same production batch. In this problem, it is considered that the quantity produced of each product is directly proportional to the processing time, however, with a different production rate (quantity/unit of time) for each product. In addition, there is a maximum quantity allowed for the production of batch products, defined both individually and for the set. The maximum production quantity of each product is defined according to the demand for the product. However, it is still possible to stock the products and/or send them to the outlets. In both cases, there is a stocking/shipping limit for each product and a stocking/shipping limit for the set of products in the batch. Also, there is a time limit available for processing the batch. The problem consists of defining the maximum processing time for the batch, respecting the limitations related to the quantities produced. For a better understanding of the problem, an example is presented below.
 
-\emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the maximum stock allowed for each product, an additional 3000 g of product A and 2000 g of product B may be stocked at the factory. There is a demand for 1000 g of product A and 500 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product. A maximum time of 300 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ? 
+\emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the maximum stock allowed for each product, an additional 3000 g of product A and 2000 g of product B may be stocked at the factory. There is a demand for 1000 g of product A and 500 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product. A maximum time of 100 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ? 
 
 \section{Mathematical model}
 \label{}
@@ -416,7 +416,7 @@ So we have: \\
 
 $ T = 55 min$ \\
 
-As $T<\textrm{Z}$, then this will certainly be the optimal solution. \\
+As $T<\textrm{Z=100}$, then this will certainly be the optimal solution. \\
 
 In this case we will have: \\
 
@@ -493,6 +493,38 @@ $\textrm{UI}_i$ & 3000 & 2000 & 1000 & 800 & 3000 & 1000 & 400 & 300 & 200 & 0 &
 \end{small}
 \end{center}
 \end{table}
+
+For building larger benchmarks, we used the following functions: \\
+
+\begin{equation}
+\textrm{p}_i = rand()\%30 + 10
+\end{equation}
+
+\begin{equation}
+\textrm{UD}_i = rand()\%3000 + 800;
+\end{equation}
+
+\begin{equation}
+\textrm{O} = rand()\%3000 + 500;
+\end{equation}
+
+\begin{equation}
+\textrm{UO}_i = rand()\%(\textrm{O}-500) + 500;
+\end{equation}
+
+\begin{equation}
+\textrm{I} = rand()\%5000 + 1000;
+\end{equation}
+
+\begin{equation}
+\textrm{UI}_i = rand()\%(\textrm{I}-1000) + 1000;
+\end{equation}
+
+\begin{equation}
+\textrm{Z} = 100;
+\end{equation}
+
+Seeking to enable the reproduction of the results, in the computational construction of the benchmarks we used the function srand((unsigned) source), where source is a defined value. To build the results presented in this work, we used source=0. \\
 
 Table X presents a comparison of the results obtained by applying the analytical method and the LINGO solver for the solution of the previously presented benchmarks.
 
