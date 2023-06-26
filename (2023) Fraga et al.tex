@@ -45,7 +45,7 @@
 %% for the whole article with \linenumbers.
 %% \usepackage{lineno}
 
-\journal{Nuclear Physics B}
+\journal{Journal of Analysis, Modeling and Optimization}
 
 \begin{document}
 
@@ -145,7 +145,9 @@ multiproduct batch \sep processing time maximization
 \section{Introduction}
 \label{sec:intro}
 
-The literature presents several scientific papers that address the multi-product batch problem. Most works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine the ideal batch size for each product, in a production of several products, which share the same production facilities and for which demand is known \citep{Eilon1985}. In this work, we are concerned with determining the ideal processing time for a batch consisting of a set of products, each product being or not different from the other products of the same batch. That is, we consider a specific case where different products are processed simultaneously on the same processor. This case occurs, for example, during the processing of plastic bags in extruders. In this process, the resins are melted, then the molten resin passes through a cylinder forming a balloon and this balloon, after cooling, will be stored in a coil. This coil, in turn, will be cut into several coils, forming different models of plastic bags.
+The scientific literature presents several papers that address the multi-product batch problem. Most works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine production ordering and the ideal batch size for each product, in a production of several products, which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. Ordering is often also important due to high setup costs. 
+
+In this work, we are concerned with determining the ideal processing time for a batch consisting of a set of products, each product being or not different from the other products of the same batch. That is, we consider a specific case where different products are processed simultaneously on the same processor. This case occurs, for example, during the processing of plastic bags in extruders, where the resins are melted, then pass through a cylinder forming a balloon and this balloon, and after cooling, is stored in a coil which, in turn, is cut into several smaller coils, forming different models of plastic bags.
 
 \section{Multiproduct batch processing time maximization problem}
 \label{sec:MBPTMP}
