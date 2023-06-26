@@ -18,7 +18,7 @@
 \usepackage[authoryear, round]{natbib}
 
 \newtcolorbox[auto counter]{pabox}[2][]{%
-colback=white!10!white, breakable, sharp corners, boxrule=0.7pt, title= \textbf{ABC Analysis #2}, #1}
+colback=white!10!white, breakable, sharp corners, boxrule=0.7pt, title= \textbf{Multi-product batch problem #2}, #1}
 
 \begin{document}
 
@@ -30,37 +30,43 @@ colback=white!10!white, breakable, sharp corners, boxrule=0.7pt, title= \textbf{
 
 \begin{minipage}{\textwidth}
 
-\begin{pabox}[label={myusecounter}]{\hfill  \cite{FloresAndWhybark1986}}
+\begin{pabox}[label={myusecounter}]{\hfill  \cite{Eilon1985}}
 % Change to a smaller, but still legible font size to help fit in the recommended "one to two pages"
 
 \textbf{brief:}
 \vspace{5pt}
 
-The authors present a method for multicriteria ABC analysis called Joint Criteria Matrix along with some application examples.
+The authors present ...
 \vspace{5pt}
 
-\textbf{Joint Criteria Matrix method}
+\textbf{method}
 \vspace{5pt}
 
-According to this method, items are classified according to two distinct criteria (usually concurrent), and then a matrix is used for reclassification.
+According to this method....
 \vspace{5pt}
 
 \textbf{useful:}
 \vspace{5pt}
 
-The authors present a good and detailed explanation for the ABC analysis method as well as a detailed explanation of several alternative criteria used for ranking the importance of inventory items: obsolescence, lead times, substitutability, repairability, criticality and commonality.
+The authors present ....
 
 \vspace{5pt}
 
 \textbf{extension:}
 \vspace{5pt}
 
-\cite{FloresAndWhybark1987} present an extensive comparative study of the application of Joint Criteria Matrix method in a company in the service sector and in a company in the manufacturing sector.
+\cite{Eilon1985} present ...
 
 \tcblower
 
 \bibliographystyle{unsrtnat}
-\bibliography{bibFile}
+
+\begin{thebibliography}{00}
+
+\bibitem[\protect\citeauthoryear{Eilon}{1985}]{Eilon1985}
+Eilon. (1985). Multi-product batch production on a single machine - A problem revisited. {\it OMEGA Int. J. of Mgmt. Sci.}, Vol. 13 (5), pp. 453--468.
+
+\end{thebibliography}
 
 \end{pabox}
 \end{minipage}
