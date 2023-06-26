@@ -145,10 +145,11 @@ multiproduct batch \sep processing time maximization \sep anal
 \section{Introduction}
 \label{sec:intro}
 
-The scientific literature presents several papers that address the multi-product batch problem. Most works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine production ordering and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. Other important works deal with the design of a multi-product batch plant. In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the
-equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
+The scientific literature presents several papers that address the multi-product batch problem. Many works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine production ordering and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. In the papers mentioned above, production in a single unit or in a  simple serial flowshop plant is considered, in which all products follow the same linear flow through the production units. \cite{KimEtAl1996} consider the multi-product batch problem in networked processes. As defined by the authors, in this case, the production units are not arranged in a line, and the connection between the units may or may not exist. Therefore, the production paths in the flowshop network can be different for each product. Also the passing of previous batch can be possible so that the final sequence of the production at the last stage units can be different from the initial sequence. Other important works deal with the design of a multi-product batch plant. In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
 
 In this work, we are concerned with determining the ideal processing time for a batch consisting of a set of products, each product being or not different from the other products of the same batch. That is, we consider a specific case where different products are processed simultaneously on the same processor. This case occurs, for example, during the processing of plastic bags in extruders, where the resins are melted, then pass through a cylinder forming a balloon and this balloon, and after cooling, is stored in a coil which, in turn, is cut into several smaller coils, forming different models of plastic bags.
+
+In the next sections, a presentation of the multi-product batch processing time maximization problem is made, along with an application example. Section \ref{sec:mathModel} presents an interger linear mathematical model for the problem and section \ref{sec:analyticalSol} presents an analytical method for its solution. Section \ref{sec:results} presents the tests and results obtained by a solver in C++ applying the analytical solution and a solver developed in LINGO to new proposed benchmarks. In sections \ref{sec:contributions} and \ref{sec:acknowledgments}, the contributions of this work are informed and acknowledgments are given, respectively. Finally, section \ref{sec:conclusions} presents the paper's conclusions and suggestions for future works.
 
 \section{Multiproduct batch processing time maximization problem}
 \label{sec:MBPTMP}
@@ -158,7 +159,7 @@ The multiproduct batch processing time maximization problem arises when a set of
 \emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the maximum stock allowed for each product, an additional 3000 g of product A and 2000 g of product B may be stocked at the factory. There is a demand for 1000 g of product A and 500 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product. A maximum time of 100 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ? 
 
 \section{Mathematical model}
-\label{}
+\label{sec:mathModel}
 
 Given that: \\
 
@@ -235,7 +236,7 @@ where: \\
 Constraints in (2) relate the quantity produced, $P_i$, to batch processing time $T$. Constraints in (3) calculate the quantity produced, $P_i$, as a function of the primary variables, $D_i$, $O_i$ and $I_i$. Constraints in (4), (5), and (7) state that the quantity delivered to demand, the quantity shipped to the autlets, and the factory-stocked quantity of each product must be less than their respective known limits. Constraints (6) and (8) state that both the sum of product quantities sent to the autlets and the sum of product quantities stored in the factory must be less than their respective maximum allowed values. The restriction in (9) establishes that there is a batch processing time limit, $Z$, that must be respected. And finally, the constraints in (10) inform the nature of the decision variables.
 
 \section{Analytical solution}
-\label{}
+\label{sec:analyticalSol}
 
 It is possible to consider the factory stock and the outlets stock as single stock, so we have:
 
@@ -442,7 +443,7 @@ Note that it is not important to know the values of $O_i$ and $I_i$ $\forall i$ 
 \end{equation}
 
 \section{Tests and results}
-\label{}
+\label{sec:results}
 
 To test the developed model and analytical solution method, we created a solver in C++ and a solver in LINGO (both available at github.com). We tested the solvers developed for the benchmarks presented below. 
 
@@ -534,8 +535,15 @@ Seeking to enable the reproduction of the results, in the computational construc
 Table X presents a comparison of the results obtained by applying the analytical method and the LINGO solver for the solution of the previously presented benchmarks.
 
 \section{Contributions}
+\label{sec:contributions}
 
-The work for the elaboration of this paper is being carried out by three professors, as described below. Professor Fraga, T.B., was responsible for identifying the problem, mathematical modeling, proposing an analytical solution, developing a solver in C ++ for the analytical solution, developing benchmarks, and testing the analytical method and the solver in C++, as well as surveying bibliography and elaboration of the paper. Professor Henrique, M.  is developing a solver in LINGO for testing and validating the model. Professor Menezes, R. is contributing to the bibliographic survey and to writing the bibliographic review presented in the paper.
+The work for the elaboration of this paper is being carried out by three professors, as described below. Professor Fraga, T.B., was responsible for identifying the problem, mathematical modeling, proposing an analytical solution, developing a solver in C ++ for the analytical solution, developing benchmarks, and testing the analytical method and the solver in C++, as well as surveying bibliography and elaboration of the paper. Professor Henrique, M.  is developing a solver in LINGO for testing and validating the model. Professor Menezes, R. is contributing to the bibliographic survey and to writing the bibliographic review presented in the paper. 
+
+\section{Acknowledgments}
+\label{sec:acknowledgments}
+
+\section{Conclusions and suggestions for future works}
+\label{sec:conclusions}
 
 
 %% The Appendices part is started with the command \appendix;
@@ -562,10 +570,13 @@ The work for the elaboration of this paper is being carried out by three profess
 \bibitem[\protect\citeauthoryear{Eilon}{1985}]{Eilon1985}
 Eilon. (1985). Multi-product batch production on a single machine - A problem revisited. {\it OMEGA Int. J. of Mgmt Sci.}, Vol. 13 (5), pp. 453--468.
 
-\bibitem[\protect\citeauthoryear{Liu et al}{2020}]{LiuEtAl2020}
+\bibitem[\protect\citeauthoryear{Kim \emph{et al.}}{1996}]{KimEtAl1996}
+Kim, M., Jung, J. H. and Lee, I. (1996). Intelligent scheduling and monitoring for multi-product networked batch processes. {\it  Computers chem. Engn}, Vol. 20 (Suppl.), pp. 1149--1154.
+
+\bibitem[\protect\citeauthoryear{Liu \emph{et al.}}{2020}]{LiuEtAl2020}
 Liu, G., Li, F., Yang, X., and Qiu. S. (2020). The multi-stage multi-product batch-sizing problem in the steel industry. {\it  Applied Mathematics and Computation}, Vol. 369, 124830.
 
-\bibitem[\protect\citeauthoryear{Omega}{1993}]{Omega1993}
+\bibitem[\protect\citeauthoryear{Omega Journal}{1993}]{Omega1993}
 OMEGA Journal. (1993). Single Machine Multi-product Batch Scheduling: Testing Several Solution Methods. {\it  OMEGA Int. J. of Mgmt Sci.}, Vol. 21 (6), pp. 709--711.
 
 \bibitem[\protect\citeauthoryear{Ravemark and Rippin}{1998}]{RavemarkAndRippin1998}
