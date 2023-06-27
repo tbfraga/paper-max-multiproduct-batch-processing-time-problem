@@ -453,7 +453,7 @@ Note that it is not important to know the values of $O_i$ and $I_i$ $\forall i$ 
 \section{Tests and results}
 \label{sec:results}
 
-To test the developed model and analytical solution method, we created a solver in C++ and a solver in LINGO (both available at github.com). We tested the solvers developed for the benchmarks presented below. 
+To test the developed model and analytical solution method, we created a solver in C++ and a solver in LINGO (both available at github.com). The tests were performed on a notebook with an Intel i7 processor. We tested the solvers developed for the benchmarks presented below. 
 
 \begin{table}[h]
 \begin{center}
@@ -556,14 +556,14 @@ Table \ref{tab:results} presents the results obtained by applying the analytical
 \begin{tabular}[c]{l r r r r}
 problem & LINGO solver & time (s) & analytical method & time (s) \\
 \cline {1-5} \\
-MBPTMP 1 & & & 52 & 0 \\
-MBPTMP 2 & & & 46 & 0 \\
-MBPTMP 3 & & & 30 & 0 \\
-RMBPTMP 20 & & & 100 & 0 \\
-RMBPTMP 50 & & & 98 & 0\\
-RMBPTMP 100 & & & 98 & 0\\
-RMBPTMP 1,000 & & & 78 & 0\\
-RMBPTMP 10,000 & & & 70 & 0 \\
+MBPTMP 1 & 55 & 0 & 55 & 0.001 \\
+MBPTMP 2 & 48 & 0.06 & 48 & 0.001 \\
+MBPTMP 3 & & & 30 & 0.001 \\
+RMBPTMP 20 & & & 100 & 0.001 \\
+RMBPTMP 50 & & & 98 & 0.001\\
+RMBPTMP 100 & & & 98 & 0.002\\
+RMBPTMP 1,000 & & & 78 & 0.002\\
+RMBPTMP 10,000 & & & 70 & 0.006 \\
 \cline {1-5} \\
 \end{tabular}
 \label{tab:results}
