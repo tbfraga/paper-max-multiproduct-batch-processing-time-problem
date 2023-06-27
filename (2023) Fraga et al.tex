@@ -145,7 +145,7 @@ multiproduct batch \sep processing time maximization \sep analytical solution \s
 \section{Introduction}
 \label{sec:intro}
 
-The scientific literature presents several papers that address multi-product batch problens. Many works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine production ordering and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. In the papers mentioned above, production in a single unit or in a  simple serial flowshop plant is considered, in which all products follow the same linear flow through the production units. \cite{KimEtAl1996} consider the multi-product batch problem in networked processes. As defined by the authors, in this case, the production units are not arranged in a line, and the connection between the units may or may not exist. Therefore, the production paths in the flowshop network can be different for each product. Also the passing of previous batch can be possible so that the final sequence of the production at the last stage units can be different from the initial sequence. Other important works deal with the problem of a multi-product batch plant design (MPBPD). In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
+The scientific literature presents several papers that address multi-product batch problens. Many works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine the production sequence of the products and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. In the papers mentioned above, production in a single unit or in a  simple serial flowshop plant is considered, in which all products follow the same linear flow through the production units. \cite{KimEtAl1996} consider the multi-product batch problem in networked processes. As defined by the authors, in this case, the production units are not arranged in a line, and the connection between the units may or may not exist. Therefore, the production paths in the flowshop network can be different for each product. Also the passing of previous batch can be possible so that the final sequence of the production at the last stage units can be different from the initial sequence. Other important works deal with the problem of a multi-product batch plant design (MPBPD). In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
 
 In this work, we are concerned with determining the ideal processing time for a batch consisting of a set of products, each product being or not different from the other products of the same batch. That is, we consider a specific case where different products are processed simultaneously on the same processor. This case occurs, for example, during the processing of plastic bags in extruders, where the resins are melted, then pass through a cylinder forming a balloon and this balloon, after cooling, is stored in a coil which, in turn, is cut into several smaller coils, forming different models of plastic bags. 
 
@@ -285,7 +285,7 @@ D_i \leq \textrm{UD}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
-D_i \in  \mathbb{Z}^+ \quad \forall i
+D_i, T' \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
 
 This reduced problem can be rewritten in the form:
@@ -332,7 +332,7 @@ E_i - S_i \leq \textrm{UO}_i + \textrm{UI}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
-E_i \in  \mathbb{Z}^+ \quad \forall i
+E_i, T'' \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
 
 Again, using a little algebra, we can rewrite this reduced problem in the form:
@@ -381,7 +381,7 @@ T = T' + T''
 \end{equation}
 
 \begin{equation}
-T = \min \{T , Z\}
+T = \min \{T , \textrm{Z}\}
 \end{equation}
 
 It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper. \\
@@ -390,55 +390,55 @@ It is probably possible to extend this thinking to the solution of a class of li
 
 Applying the method for solving the example presented in section \ref{sec:MBPTMP}, we have: \\
 
-$T' \leq 1000g / 60g/min$ \\
+$T' \leq \lfloor{1000 \textrm{ g} / (60 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T' \leq 16,67 min$ \quad for A \\
+$T' \leq 16 \textrm{ min}$ \quad for A \\
 
-$T' \leq 500g / 40g/min$ \\
+$T' \leq \lfloor{500 \textrm{ g} / (40 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T' \leq 12,50 min$ \quad for B \\
+$T' \leq 12 \textrm{ min}$ \quad for B \\
 
 so: \\
 
-$T' = 12$ \\
+$T' = 12 \textrm{ min}$ \\
 
 Then:\\
 
-$S_A = 1000g - 12min * 60g/min = 280g$ \\
+$S_A = 1000 \textrm{ g} - 12 \textrm{ min} * 60 \textrm{ g}/\textrm{min} = 280 \textrm{ g}$ \\
 
-$S_B = 500g - 12min * 40g/min = 20g$ \\
+$S_B = 500 \textrm{ g} - 12 \textrm{ min} * 40 \textrm{ g}/\textrm{min} = 20 \textrm{ g}$ \\
 
 And so we have: \\
 
-$T'' \leq (3000g + 600g + 280g) / 60g/min$ \\
+$T'' \leq \lfloor{(3000 \textrm{ g} + 600 \textrm{ g} + 280 \textrm{ g}) / (60 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T'' \leq 64,67 min$ \quad for A \\
+$T'' \leq 64 \textrm{ min}$ \quad for A \\
 
-$T'' \leq (2000g + 600g + 20g) / 40g/min$ \\
+$T'' \leq \lfloor{(2000 \textrm{ g} + 600 \textrm{ g} + 20 \textrm{ g}) / (40 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T'' \leq 65,50 min$ \quad for B \\
+$T'' \leq 65 \textrm{ min}$ \quad for B \\
 
-$T'' \leq (1000g + 3000g + 300g) / 100g/min$ \\
+$T'' \leq \lfloor{(1000 \textrm{ g} + 3000 \textrm{ g} + 300 \textrm{ g}) / (100 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T'' \leq 43 min$ \quad for A and B \\
+$T'' \leq 43 \textrm{ min}$ \quad for A and B \\
 
 So that: \\
 
-$T'' = 43 min$ \\
+$T'' = 43 \textrm{ min}$ \\
 
 So we have: \\
 
-$ T = 55 min$ \\
+$T = 55 \textrm{ min}$ \\
 
-As $T<\textrm{Z=100}$, then this will certainly be the optimal solution. \\
+As $T<\textrm{Z}$, then $T = 55 \textrm{ min}$ will certainly be the optimal solution. \\
 
 In this case we will have: \\
 
-$P_A = 3300g$ e $P_B=2200g$ \\
+$P_A = 3300 \textrm{ g}$ e $P_B=2200 \textrm{ g}$ \\
 
-$D_A = 1000g$ e $D_B = 500g$ \\
+$D_A = 1000 \textrm{ g}$ e $D_B = 500 \textrm{ g}$ \\
 
-$E_A = 2300g$ e $E_B = 1700g$ \\
+$E_A = 2300 \textrm{ g}$ e $E_B = 1700 \textrm{ g}$ \\
 
 Note that it is not important to know the values of $O_i$ and $I_i$ $\forall i$ however these values can be found by taking a solution from the indeterminate system of inequations:
 
@@ -511,41 +511,74 @@ $\textrm{UI}_i$ & 3000 & 2000 & 1000 & 800 & 3000 & 1000 & 400 & 300 & 200 & 0 &
 For building larger benchmarks, we used the following functions: \\
 
 \begin{equation}
-\textrm{p}_i = rand()\%30 + 10
+\textrm{p}_i = \textrm{rand}()\%30 + 10
 \end{equation}
 
 \begin{equation}
-\textrm{UD}_i = rand()\%3000 + 800;
+\textrm{UD}_i = \textrm{rand}()\%3000 + 800;
 \end{equation}
 
 \begin{equation}
-\textrm{O} = rand()\%3000 + 500;
+ \textrm{seed1} = \textrm{rand}()\%3000 + 500;
 \end{equation}
 
 \begin{equation}
-\textrm{UO}_i = rand()\%(\textrm{O}-500) + 500;
+\textrm{seed2} = \textrm{rand}()\%5000 + 1000;
 \end{equation}
 
 \begin{equation}
-\textrm{I} = rand()\%5000 + 1000;
+\textrm{O} = \textrm{N}/2*\textrm{seed1};
 \end{equation}
 
 \begin{equation}
-\textrm{UI}_i = rand()\%(\textrm{I}-1000) + 1000;
+\textrm{UO}_i = \textrm{rand}()\%(\textrm{seed1}-500) + 500;
+\end{equation}
+
+\begin{equation}
+\textrm{I} = \textrm{N}/2*\textrm{seed2};
+\end{equation}
+
+\begin{equation}
+\textrm{UI}_i = \textrm{rand}()\%(\textrm{seed2}-1000) + 1000;
 \end{equation}
 
 \begin{equation}
 \textrm{Z} = 100;
 \end{equation}
 
+Randomly generated benchmarks were named RMBPTMP $\textrm{N}$, being $\textrm{N}$ the number of products.
+
 Seeking to enable the reproduction of the results, in the computational construction of the benchmarks we used the function srand((unsigned) source), where source is a defined value. To build the results presented in this work, we used source=0. \\
 
-Table X presents a comparison of the results obtained by applying the analytical method and the LINGO solver for the solution of the previously presented benchmarks.
+Table X presents the results obtained by applying the analytical method and the LINGO solver for the solution of the previously presented benchmarks.
+
+\begin{table}[h]
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}[c]{l r r r r}
+problem & LINGO solver & time (s) & analytical method & time (s) \\
+\cline {1-5} \\
+MBPTMP 1 & & & 52 & 0 \\
+MBPTMP 2 & & & 46 & 0 \\
+MBPTMP 3 & & & 30 & 0 \\
+RMBPTMP 20 & & & 100 & 0 \\
+RMBPTMP 50 & & & 98 & 0\\
+RMBPTMP 100 & & & 98 & 0\\
+RMBPTMP 1,000 & & & 78 & 0\\
+RMBPTMP 10,000 & & & 70 & 0 \\
+\cline {1-5} \\
+\end{tabular}
+\label{tab:results}
+\caption{Results obtained with the LINGO solver and the analytical method}
+\end{footnotesize}
+\end{center}
+\end{table}
+
 
 \section{Contributions}
 \label{sec:contributions}
 
-The work for the elaboration of this paper is being carried out by two professors, as described below. Professor Fraga, T.B., was responsible for identifying the problem, mathematical modeling, proposing an analytical solution, developing a solver in C ++ for the analytical solution, developing benchmarks, and testing the analytical method and the solver in C++, as well as surveying bibliography and elaboration of the paper. Professor Menezes, R. D. C. S. is contributing to the bibliographic survey and to writing the bibliographic review presented in the paper. 
+The work for the elaboration of this paper is being carried out by two professors, as described below. Professor Fraga, T.B., was responsible for identifying the problem, mathematical modeling, proposing an analytical solution, developing a solver in C ++ for the analytical solution, developing benchmarks, and testing the analytical method and the solver in C++, as well as surveying bibliography and elaboration of the paper. Professor Menezes, R. D. C. S. is contributing to the bibliographic survey. 
 
 \section{Acknowledgments}
 \label{sec:acknowledgments}
