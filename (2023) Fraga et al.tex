@@ -17,7 +17,10 @@
 %% Template article for Elsevier's document class `elsarticle'
 %% with harvard style bibliographic references
 
-\documentclass[preprint,12pt,authoryear]{elsarticle}
+\documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+
+%% The `ecrc' package must be called to make the CRC functionality available
+%\usepackage{ecrc}
 
 %% Use the option review to obtain double line spacing
 %% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
@@ -45,7 +48,7 @@
 %% for the whole article with \linenumbers.
 %% \usepackage{lineno}
 
-\journal{Journal of Systems Analysis, Modeling and Optimization}
+\journal{Journal of Analysis, Modeling and Optimization}
 
 \begin{document}
 
@@ -145,7 +148,7 @@ multiproduct batch \sep processing time maximization \sep analytical solution \s
 \section{Introduction}
 \label{sec:intro}
 
-The scientific literature presents several papers that address multi-product batch problems. Many works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine the production sequence of the products and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. In the papers mentioned above, production in a single unit or in a serial flowshop plant is considered, in which all products follow the same linear flow through the production units. \cite{KimEtAl1996} consider the multi-product batch problem in networked processes. As defined by the authors, in this case, the production units are not arranged in a line, and the connection between the units may or may not exist. Therefore, the production paths in the flowshop network can be different for each product. Also the passing of previous batch can be possible so that the final sequence of the production at the last stage units can be different from the initial sequence. Other important works deal with the problem of a multi-product batch plant design (MPBPD). In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
+The scientific literature presents several papers that address multi-product batch problens. Many works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine the production sequence of the products and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. In the papers mentioned above, production in a single unit or in a serial flowshop plant is considered, in which all products follow the same linear flow through the production units. \cite{KimEtAl1996} consider the multi-product batch problem in networked processes. As defined by the authors, in this case, the production units are not arranged in a line, and the connection between the units may or may not exist. Therefore, the production paths in the flowshop network can be different for each product. Also the passing of previous batch can be possible so that the final sequence of the production at the last stage units can be different from the initial sequence. Other important works deal with the problem of a multi-product batch plant design (MPBPD). In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
 
 In this work, we are concerned with determining the ideal processing time for a batch consisting of a set of products, each product being or not different from the other products of the same batch. That is, we consider a specific case where different products are processed simultaneously on the same processor. This case occurs, for example, during the processing of plastic bags in extruders, where the resins are melted, then pass through a cylinder forming a balloon and this balloon, after cooling, is stored in a coil which, in turn, is cut into several smaller coils, forming different models of plastic bags. 
 
