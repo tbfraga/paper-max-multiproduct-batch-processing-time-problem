@@ -120,7 +120,7 @@
 
 %%Graphical abstract
 \begin{graphicalabstract}
-%\includegraphics{grabs}
+\includegraphics[width=13cm]{graphical.png}
 \end{graphicalabstract}
 
 %%Research highlights
@@ -166,6 +166,14 @@ The multiproduct batch processing time maximization problem arises when a set of
 \section{Mathematical model}
 \label{sec:mathModel}
 
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+
 Given that: \\
 
 $\textrm{UD}_i$ is the demand for the product $i$; \\
@@ -197,43 +205,33 @@ We have the problem: \\
 \begin{equation}
 max \quad T
 \end{equation}
-
-$s.t.$ \\
-
+$\qquad \qquad \qquad \qquad \qquad \qquad s.t.$ \\
 \begin{equation}
 P_i - \textrm{p}_i * T  = 0 \quad \forall i
 \end{equation}
-
 \begin{equation}
 P_i - D_i - O_i - I_i = 0 \quad \forall i
 \end{equation}
-
 \begin{equation}
 D_i \leq \textrm{UD}_i \quad \forall i
 \end{equation}
-
 \begin{equation}
 O_i \leq \textrm{UO}_i \quad \forall i
 \end{equation}
-
 \begin{equation}
 \sum_i{O_i} \leq \textrm{O}
 \end{equation}
-
 \begin{equation}
 I_i \leq \textrm{UI}_i \quad \forall i
 \end{equation}
-
 \begin{equation}
 \sum_i{I_i} \leq \textrm{I}
 \end{equation}
-
 \begin{equation}
 T \leq \textrm{Z}
 \end{equation}
-
 \begin{equation}
-D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
+T, D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
 
 where: \\
@@ -356,33 +354,44 @@ T'' \leq \lfloor{(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i
 
 So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value. \\
 
-So the solution method can be decomposed into 4 steps: \\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+a\\
+
+
+
+The analytical method can be decomposed into 4 steps: \\
 
 step 1: find $T'$, where:
-
 \begin{equation}
 T' = \lfloor{\min_{\forall i} \{\textrm{UD}_i / \textrm{p}_i\}}\rfloor
 \end{equation}
 
 step 2: calculate $S_i$ for all products.
-
 \begin{equation}
 \label{eq:unmet}
 S_i = \textrm{UD}_i - \textrm{p}_i * T' \quad \forall i
 \end{equation}
 
 step 3: find $T''$, where:
-
 \begin{equation}
 T'' = \lfloor{\min \{\min_{\forall i} \{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\},(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}\}}\rfloor
 \end{equation}
 
 step 4: calculate $T$, where: 
-
 \begin{equation}
 T = T' + T''
 \end{equation}
-
 \begin{equation}
 T = \min \{T , \textrm{Z}\}
 \end{equation}
