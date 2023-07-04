@@ -17,7 +17,7 @@
 %% Template article for Elsevier's document class `elsarticle'
 %% with harvard style bibliographic references
 
-\documentclass[review,12p]{elsarticle}
+\documentclass[authoryear,preprint,12pt]{elsarticle}
 
 %% The `ecrc' package must be called to make the CRC functionality available
 %\usepackage{ecrc}
@@ -79,7 +79,7 @@
 %%            country={}}
 %% \fntext[label3]{}
 
-\title{Multiproduct Batch Processing Time Maximization Problem}
+\title{Multi-product Batch Processing Time Maximization Problem}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -97,7 +97,7 @@
 %%             state={},
 %%             country={}}
 
-\author{Tatiana Balbi Fraga and Regilda da Costa e Silva Menêzes}
+\author{Tatiana Balbi Fraga, Ítalo Ruan Barbosa de Aquino and Regilda da Costa e Silva Menêzes}
 
 \affiliation{organization={Centro Acadêmico do Agreste - Universidade Federal de Pernambuco},
              addressline={Avenida Marielle Franco, Bairro Nova Caruaru},
@@ -148,7 +148,7 @@ multiproduct batch \sep processing time maximization \sep analytical solution \s
 \section{Introduction}
 \label{sec:intro}
 
-The scientific literature presents several papers that address multi-product batch problens. Many works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine the production sequence of the products and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. In the papers mentioned above, production in a single unit or in a serial flowshop plant is considered, in which all products follow the same linear flow through the production units. \cite{KimEtAl1996} consider the multi-product batch problem in networked processes. As defined by the authors, in this case, the production units are not arranged in a line, and the connection between the units may or may not exist. Therefore, the production paths in the flowshop network can be different for each product. Also the passing of previous batch can be possible so that the final sequence of the production at the last stage units can be different from the initial sequence. Other important works deal with the problem of a multi-product batch plant design (MPBPD). In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
+The scientific literature presents several papers that address multi-product batch problems. Many works target the problem of multi-product batch scheduling (MPBS), in which it is necessary to determine the production sequence of the products and the ideal batch size for each product, in a production of several products which share the same production facilities and for which demand is known \citep{Eilon1985}. In this problem, a single product is processed at a time, so it is necessary that the quantity produced is sufficient to meet the demand during the period in which other products are being processed. The solution must be determined in such a way that both setup and storage costs are minimized. Among the authors who addressed this problem are \cite{Eilon1985}, \cite{Omega1993} and \cite{LiuEtAl2020}. In the papers mentioned above, production in a single unit or in a serial flowshop plant is considered, in which all products follow the same linear flow through the production units. \cite{KimEtAl1996} consider the multi-product batch problem in networked processes. As defined by the authors, in this case, the production units are not arranged in a line, and the connection between the units may or may not exist. Therefore, the production paths in the flowshop network can be different for each product. Also the passing of previous batch can be possible so that the final sequence of the production at the last stage units can be different from the initial sequence. Other important works deal with the problem of a multi-product batch plant design (MPBPD). In this case the problem is to obtain the configuration of the plant and the equipment that minimize the capital cost of all the equipment items needed to fulfill the production requirements \citep{RavemarkAndRippin1998}. 
 
 In this work, we are concerned with determining the ideal processing time for a batch consisting of a set of products, each product being or not different from the other products of the same batch. That is, we consider a specific case where different products are processed simultaneously on the same processor. This case occurs, for example, during the processing of plastic bags in extruders, where the resins are melted, then pass through a cylinder forming a balloon and this balloon, after cooling, is stored in a coil which, in turn, is cut into several smaller coils, forming different models of plastic bags. 
 
@@ -166,37 +166,29 @@ The multiproduct batch processing time maximization problem arises when a set of
 \section{Mathematical model}
 \label{sec:mathModel}
 
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-
 Given that: \\
 
-$\textrm{UD}_i$ is the demand for the product $i$; \\
+$\textrm{UD}_i$ is the demand for the product $i$;
 
-$\textrm{I}$ is the maximum quantity allowed for additional factory storage of all products in the batch; \\
+$\textrm{I}$ is the maximum quantity allowed for additional factory storage of all products in the batch;
 
-$\textrm{UI}_i$ is the maximum quantity allowed for stocking the product $i$ in the factory; \\
+$\textrm{UI}_i$ is the maximum quantity allowed for stocking the product $i$ in the factory;
 
-$\textrm{O}$ is the maximum quantity allowed for shipment of all products to outlets; \\
+$\textrm{O}$ is the maximum quantity allowed for shipment of all products to outlets;
 
-$\textrm{UO}_i$ is the maximum amount of product $i$ that can be shipped to outlets; \\ 
+$\textrm{UO}_i$ is the maximum amount of product $i$ that can be shipped to outlets;
 
-$\textrm{p}_i$ is the production rate of product $i$; \\
+$\textrm{p}_i$ is the production rate of product $i$;
 
-$\textrm{Z}$ is the timeout for batch processing; \\
+$\textrm{Z}$ is the timeout for batch processing;
 
-$P_i$ is the amount of product $i$ produced; \\
+$P_i$ is the amount of product $i$ produced;
 
-$D_i$ is the amount of product $i$ delivered for the demand; \\
+$D_i$ is the amount of product $i$ delivered for the demand;
 
-$O_i$ amount of product $i$ shipped to factory outlets; \\
+$O_i$ amount of product $i$ shipped to factory outlets;
 
-$I_i$ is the amount of product $i$ that will be stored at the factory; \\
+$I_i$ is the amount of product $i$ that will be stored at the factory;
 
 $T$ is the batch processing time. \\
 
@@ -205,31 +197,41 @@ We have the problem: \\
 \begin{equation}
 max \quad T
 \end{equation}
-$\qquad \qquad \qquad \qquad \qquad \qquad s.t.$ \\
+
+$s.t.$
+
 \begin{equation}
 P_i - \textrm{p}_i * T  = 0 \quad \forall i
 \end{equation}
+
 \begin{equation}
 P_i - D_i - O_i - I_i = 0 \quad \forall i
 \end{equation}
+
 \begin{equation}
 D_i \leq \textrm{UD}_i \quad \forall i
 \end{equation}
+
 \begin{equation}
 O_i \leq \textrm{UO}_i \quad \forall i
 \end{equation}
+
 \begin{equation}
 \sum_i{O_i} \leq \textrm{O}
 \end{equation}
+
 \begin{equation}
 I_i \leq \textrm{UI}_i \quad \forall i
 \end{equation}
+
 \begin{equation}
 \sum_i{I_i} \leq \textrm{I}
 \end{equation}
+
 \begin{equation}
 T \leq \textrm{Z}
 \end{equation}
+
 \begin{equation}
 T, D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
@@ -270,12 +272,11 @@ T = T' + T''
 
 and consider that $T'$ is the maximum processing time used only for production that will meet the demand. Thus, we can find $T'$, solving the reduced problem:
 
-
 \begin{equation}
 max \quad T'
 \end{equation}
 
-$s.t.$ \\
+$s.t.$
 
 \begin{equation}
 D_i - \textrm{p}_i * T'  = 0 \quad \forall i
@@ -318,7 +319,7 @@ In this case, we can find $T'''$ by solving the second reduced problem:
 max \quad T''
 \end{equation}
 
-$s.t.$ \\
+$s.t.$
 
 \begin{equation}
 E_i - \textrm{p}_i * T''  = 0 \quad \forall i
@@ -342,7 +343,7 @@ Again, using a little algebra, we can rewrite this reduced problem in the form:
 max \quad T''
 \end{equation}
 
-$s.t.$ \\
+$s.t.$
 
 \begin{equation}
 T'' \leq \lfloor{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i}\rfloor  \quad \forall i
@@ -354,23 +355,7 @@ T'' \leq \lfloor{(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i
 
 So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value. \\
 
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-
-
-
-The analytical method can be decomposed into 4 steps: \\
+So, the analytical method can be decomposed into 4 steps: \\
 
 step 1: find $T'$, where:
 \begin{equation}
@@ -452,14 +437,44 @@ $D_A = 1000 \textrm{ g}$ e $D_B = 500 \textrm{ g}$ \\
 
 $E_A = 2300 \textrm{ g}$ e $E_B = 1700 \textrm{ g}$ \\
 
-Note that it is not important to know the values of $O_i$ and $I_i$ $\forall i$ however these values can be found by taking a solution from the indeterminate system of inequations:
+Note that it is not important to know the values of $O_i$ and $I_i$, $\forall i$, however, after determining $T$, these values can be found by taking a solution from the model:
+
+\begin{equation}
+max \quad \sum_i{D_i}
+\end{equation}
+
+$s.t.$
+
+\begin{equation}
+P_i  = \textrm{p}_i * T \quad \forall i
+\end{equation}
+
+\begin{equation}
+D_i - O_i - I_i = P_i \quad \forall i
+\end{equation}
+
+\begin{equation}
+D_i \leq \textrm{UD}_i \quad \forall i
+\end{equation}
+
+\begin{equation}
+O_i \leq \textrm{UO}_i \quad \forall i
+\end{equation}
 
 \begin{equation}
 \sum_i{O_i} \leq \textrm{O}
 \end{equation}
 
 \begin{equation}
+I_i \leq \textrm{UI}_i \quad \forall i
+\end{equation}
+
+\begin{equation}
 \sum_i{I_i} \leq \textrm{I}
+\end{equation}
+
+\begin{equation}
+D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
 
 \section{Tests and results}
@@ -560,7 +575,7 @@ For building larger benchmarks, we used the following functions: \\
 
 Randomly generated benchmarks were named RMBPTMP $\textrm{N}$, being $\textrm{N}$ the number of products. Seeking to enable the reproduction of the results, in the computational construction of the benchmarks we used the function srand((unsigned) source), where source is a defined value. To build the results presented in this work, we used source=0. \\
 
-Table \ref{tab:results} presents the results obtained by applying the analytical method (C++ solver) and the LINGO solver for the solution of the previously presented benchmarks.
+Table \ref{tab:results} presents the results obtained by applying the analytical method (C++ solver) and the LINGO solver for the solution of the previously presented benchmarks. \\
 
 \begin{table}[h]
 \begin{center}
@@ -568,9 +583,9 @@ Table \ref{tab:results} presents the results obtained by applying the analytical
 \begin{tabular}[c]{l r r r r}
 problem & LINGO solver & time (s) & analytical method & time (s) \\
 \cline {1-5} \\
-MBPTMP 1 & 55 & 0 & 55 & 0.001 \\
+MBPTMP 1 & 55 & 0.04 & 55 & 0.001 \\
 MBPTMP 2 & 48 & 0.06 & 48 & 0.001 \\
-MBPTMP 3 & & & 30 & 0.001 \\
+MBPTMP 3 & 30 & 0.09 & 30 & 0.001 \\
 RMBPTMP 20 & 100 & 0.08 & 100 & 0.001 \\
 RMBPTMP 50 & 98 & 0.12 & 98 & 0.001\\
 RMBPTMP 100 & 98 & 0.12 & 98 & 0.002\\
@@ -584,19 +599,25 @@ RMBPTMP 10,000 & 70 & 168.87 & 70 & 0.006 \\
 \end{center}
 \end{table}
 
+It is important to point out that the LINGO solver was developed with the purpose of validating the results found by the proposed analytical method. As the analytical method is non-polynomial, we did not intend to compare machine processing times, however it is possible to verify that both solvers are capable of finding optimal solutions for the proposed benchmarks very quickly, even for very large problems.
 
-\section{Contributions}
+We have considered here a one-day period problem, so in a future work we will study the complexities of solving a multi period problem and try to propose new solution methods if needed. 
+
+
+\section{Contributions to this work}
 \label{sec:contributions}
 
-The work for the elaboration of this paper is being carried out by two professors, as described below. Professor Fraga, T.B., was responsible for identifying the problem, mathematical modeling, proposing an analytical solution, developing a solver in C ++ for the analytical solution and a solver in LINGO for validating the mathematical model, developing benchmarks, and testing the analytical method and the solver in C++, as well as surveying bibliography and elaboration of the paper. Professor Menezes, R. D. C. S. is contributing to the bibliographic survey. 
+The work for the elaboration of this paper was carried out by tree contributors, as described below. Aquino, Í.R.B., developed the detailed study on the plastic bag production process, which made it possible to identify the problem addressed in this paper. Professor Fraga, T.B., was responsible for identifying the problem, mathematical modeling, proposing an analytical solution, developing a solver in C ++ for applying the analytical solution and a solver in LINGO for validating the mathematical model and the results found by the first solver, developing benchmarks, and testing the model and analytical method proposed, as well as surveying bibliography and elaboration of the paper. Professor Menezes, R. D. C. S., contributed to the bibliographic survey. The authorship of this work follows as described contributions.
+
+\section{Conclusions and suggestions for future works}
+\label{sec:conclusions}
+
+In this paper we presented the Multi-product Batch Processing Time Maximization Problem, as well as a mathematical model and an analytical solution method for this problem. The mathematical model and analytical method were tested, respectively, by a solver developed with the LINGO tool, from LINDO Systems, and with a solver developed in C++ language. Optimum results were found for all proposed benchmarks, very quickly, even in the case of very large problems, which demonstrates the efficiency of the proposed method. As in this paper we considered a planning period of one day, in a future work we will study the complexities that arise when considering the same problem with more than one day of planning. We will also verify if there is the possibility of extending the proposed analytical method to solve a class of linear integer programming problems with similar characteristics to the studied problem.
 
 \section{Acknowledgments}
 \label{sec:acknowledgments}
 
 We are enormously grateful to Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) and to Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) for the financial support provided to our projects. We also thank LINDO systems team for the LINGO software license, without which this work would not have been possible and the to the owner of the company in the plastics sector, who allowed us to learn about his company's production process. Finally, we would like to thank Pró-reitoria de Extensão e Cultura da UFPE (PROExC) and the Research Director of Propesqi (Pró-reitoria de Pesquisa e Inovação da UFPE) for their support and recognition of our work, and dear Professors Antônio José da Silva Neto and João Flávio Vieira de Vasconcellos from IPRJ/UERJ, who contributed significantly to the formation of essential skills for the development of our projects. We also thank my co-worker Marcos Luiz Henrique, for having helped by evaluating the mathematical model and solution method proposed in this paper.
-
-\section{Conclusions and suggestions for future works}
-\label{sec:conclusions}
 
 
 %% The Appendices part is started with the command \appendix;
