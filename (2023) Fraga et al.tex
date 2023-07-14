@@ -99,12 +99,22 @@
 
 %\author{Tatiana Balbi Fraga, Ítalo Ruan Barbosa de Aquino and Regilda da Costa e Silva Menêzes}
 
-%\affiliation{organization={Centro Acadêmico do Agreste - Universidade Federal de Pernambuco},
-%             addressline={Avenida Marielle Franco, Bairro Nova Caruaru},
-%             city={Caruaru},
-%             postcode={55014-900},
-%             state={PE},
-%             country={Brasil}}
+\author{Tatiana Balbi Fraga\corref{cor1}\fnref{label1}}
+\ead{tatiana.balbi@ufpe.br}
+\cortext[cor1]{corresponding author}
+
+\author{Ítalo Ruan Barbosa de Aquino\fnref{label1}}
+\ead{italo_ruan_@hotmail.com}
+
+\author{Regilda da Costa e Silva Menêzes\fnref{label1}}
+\ead{regilda.smenezes@ufpe.br}
+
+\affiliation[label1]{organization={Centro Acadêmico do Agreste - Universidade Federal de Pernambuco},
+             addressline={Avenida Marielle Franco, Bairro Nova Caruaru},
+             city={Caruaru},
+             postcode={55014-900},
+             state={PE},
+             country={Brasil}}
 
 %\affiliation{organization={},%Department and Organization
 %            addressline={}, 
@@ -153,7 +163,7 @@ The scientific literature presents several papers that address multi-product bat
 
 In this work, we are concerned with determining the ideal processing time for a batch consisting of a set of products, each product being or not different from the other products of the same batch. That is, we consider a specific case where different products are processed simultaneously on the same processor. This case occurs, for example, during the processing of plastic bags in extruders, where the resins are melted, then pass through a cylinder forming a balloon and this balloon, after cooling, is stored in a coil which, in turn, is cut into several smaller coils with different models of plastic bags.
 
-As scientific contributions, in this paper we define a new multi-product batch problem, named multi-product batch processing time maximization (MPBPTM) problem, as well as a mathematical model and a polynomial time complexity analytical solution method for solving this problem.
+As scientific contributions, in this paper we define a new multi-product batch problem, named multi-product batch processing time maximization (MPBPTM) problem, as well as a mathematical model and a polynomial time complexity analytical solution optmization method for solving this problem.
 
 In the next sections, a presentation of problem is made along with an application example. Section \ref{sec:mathModel} presents an interger linear mathematical model for the problem and section \ref{sec:analyticalSol} presents an analytical method for its solution. Section \ref{sec:results} presents the tests and results obtained by a solver in C++ applying the analytical solution and a solver developed in LINGO to new proposed benchmarks. In sections \ref{sec:contributions} and \ref{sec:acknowledgments}, the contributions to this work are informed and acknowledgments are given, respectively. Finally, section \ref{sec:conclusions} presents the paper's conclusions and suggestions for future works.
 
@@ -241,7 +251,7 @@ where: \\
 
 Constraints in (2) relate the quantity produced, $P_i$, to batch processing time $T$. Constraints in (3) calculate the quantity produced, $P_i$, as a function of the primary variables, $D_i$, $O_i$ and $I_i$. Constraints in (4), (5), and (7) state that the quantity delivered to demand, the quantity shipped to the autlets, and the factory-stocked quantity of each product must be less than their respective known limits. Constraints (6) and (8) state that both the sum of product quantities sent to the autlets and the sum of product quantities stocked in the factory must be less than their respective maximum allowed values. The restriction in (9) establishes that there is a batch processing time limit, $\textrm{Z}$, that must be respected. And finally, the constraints in (10) inform the nature of the decision variables.
 
-\section{Analytical solution}
+\section{Fraga's analytical solution}
 \label{sec:analyticalSol}
 
 It is possible to consider the factory stock and the outlets stock as single stock, so we have:
@@ -518,7 +528,7 @@ $\textrm{UI}_i$ & 3000 & 2000 & 3000 \\
 \cline {1-4} \\
 & & $\textrm{Z}$ & 100 \\
 \end{tabular}
-\caption{Benchmark MBPTMP 001}
+\caption{Benchmark MPBPTMP 001}
 \label{tab:MBPTMP001}
 \end{center}
 \end{table}
@@ -535,7 +545,7 @@ $\textrm{UI}_i$ & 3000 & 2000 & 1000 & 3500 \\
 \cline {1-5} \\
 & & & $\textrm{Z}$ & 100 \\
 \end{tabular}
-\caption{Benchmark MBPTMP 002}
+\caption{Benchmark MPBPTMP 002}
 \label{tab:MBPTMP002}
 \end{center}
 \end{table}
@@ -553,7 +563,7 @@ $\textrm{UI}_i$ & 3000 & 2000 & 1000 & 800 & 3000 & 1000 & 400 & 300 & 200 & 0 &
 \cline {1-12} \\
 & & & & & & & & & & $\textrm{Z}$ & 100 \\
 \end{tabular}
-\caption{Benchmark MBPTMP 003}
+\caption{Benchmark MPBPTMP 003}
 \label{tab:MBPTMP003}
 \end{small}
 \end{center}
@@ -569,14 +579,14 @@ Table \ref{tab:results} presents the results obtained by applying the analytical
 \begin{tabular}[c]{l r r r r}
 problem & LINGO solver & time (s) & analytical method & time (s) \\
 \cline {1-5} \\
-MBPTMP 1 & 55 & 0.04 & 55 & 0.001 \\
-MBPTMP 2 & 48 & 0.06 & 48 & 0.001 \\
-MBPTMP 3 & 30 & 0.09 & 30 & 0.001 \\
-RMBPTMP 20 & 100 & 0.08 & 100 & 0.001 \\
-RMBPTMP 50 & 98 & 0.12 & 98 & 0.001\\
-RMBPTMP 100 & 98 & 0.12 & 98 & 0.002\\
-RMBPTMP 1,000 & 78 & 3.10 & 78 & 0.002\\
-RMBPTMP 10,000 & 70 & 168.87 & 70 & 0.006 \\
+MPBPTMP 1 & 55 & 0.04 & 55 & 0.001 \\
+MPBPTMP 2 & 48 & 0.06 & 48 & 0.001 \\
+MPBPTMP 3 & 30 & 0.09 & 30 & 0.001 \\
+RMPBPTMP 20 & 100 & 0.08 & 100 & 0.001 \\
+RMPBPTMP 50 & 98 & 0.12 & 98 & 0.001\\
+RMPBPTMP 100 & 98 & 0.12 & 98 & 0.002\\
+RMPBPTMP 1,000 & 78 & 3.10 & 78 & 0.002\\
+RMPBPTMP 10,000 & 70 & 168.87 & 70 & 0.006 \\
 \cline {1-5} \\
 \end{tabular}
 \caption{Results obtained with the LINGO solver and the analytical method}
