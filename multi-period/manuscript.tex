@@ -161,15 +161,13 @@ $\textrm{UD}_{id}$ is the demand for the product $i$ on day $d$;
 
 $\textrm{PO}_{id}$ is the planned production of the product $i$ on day $d$;
 
-$\textrm{I}_{0}$ is the initial free factory storage of product $i$ on the beginning of the (\emph{first}) planning day; 
-
-
+$\textrm{UI}_{i0}$ is the initial free factory storage of product $i$ on the beginning of the (\emph{first}) planning day; 
 
 
 $\textrm{UI}_{i0}$ is the maximum quantity allowed for stocking in the factory the product $i$ on the (\emph{first}) planning day; \\
 
 
-$\textrm{I}_{id}$ is the maximum quantity allowed for additional factory storage of all products on day $d$;
+$\textrm{I}_{d}$ is the maximum quantity allowed for additional factory storage of all products on day $d$;
 
 $\textrm{UI}_{id}$ is the maximum quantity allowed for stocking in the factory the product $i$ on day $d$;
 
@@ -204,7 +202,7 @@ P_i - \textrm{p}_i * T  = 0 \quad \forall i
 \end{equation}
 
 \begin{equation}
-P_i + UI_{i1} - D_{i1} - O_{i1} = \textrm{I}_{0} - \textrm{PO}_{i1}
+P_i + UI_{i1} - D_{i1} - O_{i1} = \textrm{UI}_{i0} - \textrm{PO}_{i1}
 \end{equation}
 
 \begin{equation}
@@ -212,6 +210,11 @@ UI_{id} - UI_{i(d-1)} - D_{id} - O_{id} = - \textrm{PO}_{id} \quad \forall i, \f
 \end{equation}
 
 \begin{equation}
+I_{1} + \sum_{i}\{P_i -  D_{i1} - O_{i1}\} = \textrm{I}_{0} 
+\end{equation}
+
+\begin{equation}
+I_{d} - I_{d-1} + \sum_{i}\{P_i -  D_{id} - O_{id}\} = 0 \quad \forall (d>1)
 \end{equation}
 
 \begin{equation}
@@ -235,7 +238,11 @@ T \leq \textrm{Z}
 \end{equation}
 
 \begin{equation}
-UI_{id}, O_{id}, D_{id} \in  \mathbb{Z}^+ \quad \forall i,d
+UI_{id}, I_{d}, O_{id}, D_{id} \in  \mathbb{Z}^+ \quad \forall i,d
+\end{equation}
+
+\begin{equation}
+I_{d} \in  \mathbb{Z}^+ \quad \forall d
 \end{equation}
 
 where: \\
@@ -600,7 +607,7 @@ In this paper we presented the Multi-product Batch Processing Time Maximization 
 \section{CRediT authorship contribution statement} 
 \label{sec:contributions}
 
-T.B. Fraga: Conceptualization, Project administration, Supervision, Software, Methodology, Validation, Formal analysis, Writing – original draft, Writing – review \& editing. Í.R.B. Aquino: Data curation. R.C.S. Menêzes: Data curation.
+T.B. Fraga: Conceptualization, Project administration, Supervision, Software, Methodology, Validation, Formal analysis, Writing – original draft, Writing – review \& editing. Í.R.B. Aquino: Data curation.
 
 \section{Acknowledgments}
 \label{sec:acknowledgments}
