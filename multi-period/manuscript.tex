@@ -161,16 +161,6 @@ $\textrm{UD}_{id}$ is the demand for the product $i$ on day $d$;
 
 $\textrm{PO}_{id}$ is the planned production of the product $i$ on day $d$;
 
-$\textrm{UI}_{i0}$ is the initial free factory storage of product $i$ on the beginning of the (\emph{first}) planning day; 
-
-
-$\textrm{UI}_{i0}$ is the maximum quantity allowed for stocking in the factory the product $i$ on the (\emph{first}) planning day; \\
-
-
-$\textrm{I}_{d}$ is the maximum quantity allowed for additional factory storage of all products on day $d$;
-
-$\textrm{UI}_{id}$ is the maximum quantity allowed for stocking in the factory the product $i$ on day $d$;
-
 $\textrm{O}$ is the maximum quantity allowed for shipment of all products to outlets;
 
 $\textrm{UO}_i$ is the maximum amount of product $i$ that can be shipped to outlets;
@@ -179,13 +169,19 @@ $\textrm{p}_i$ is the production rate of product $i$;
 
 $\textrm{Z}$ is the timeout for batch processing; \\
 
+$UI_{id}$ is the maximum quantity allowed for stocking in the factory the product $i$ on day $d$;
+
+being $\textrm{UI}_{i0}$ the maximum quantity allowed for stocking in the factory the product $i$ on the (\emph{first}) planning day ($d=1$);
+
+$I_{d}$ is the free factory storage of all products on the end of the day $d$;
+
+being $\textrm{I}_{0}$ the initial free inventory for all products on factory on the start of the (\emph{first}) planning day ($d=1$); \\
+
 $P_i$ is the amount of product $i$ to be produced on batch;
 
 $D_{id}$ is the amount of product $i$ delivered for the demand on day $d$;
 
 $O_{id}$ amount of product $i$ shipped to factory outlets;
-
-$I_{id}$ is the amount of product $i$ that will be stored at the factory on day $d$;
 
 $T$ is the batch processing time. \\
 
