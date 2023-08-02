@@ -148,7 +148,7 @@ In the next sections, a presentation of problem is made along with an applicatio
 
 In MPMPBPTM problem consideramos um horizonte de planejamento com $\textrm{ND}$ dias ($\textrm{ND} \geq 1$) e uma demanda diária ($\textrm{UD}_{id} \geq 0$) durante este período para cada produto do lote considerado. Adicionalmente, já existe um plano de produção prévio, de forma que é possível que já exista uma programação anterior de produção para cada produto do lote. Assim a disponibilidade para estocagem e para envios para as lojas de fábrica ficará sujeita a alteração de acordo com o planejamento prévio de produção. O problema consiste em determinar a tempo máximo de processamento para o lote considerado, levando em conta as restrições de limite consideradas. For a better understanding of the problem, an example is presented below. \\
 
-\emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the company's inventory policy, a maximum of 3000 g of product A and 2000 g of product B can be stocked at the factory. For the first day, there is a demand for 1000 g of product A and 500 g of product B, and for the second day, there is a demand for 500 g of product A and 300 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product.There is a previous production planning for 1000 units of product A for the first day and 800 units of product B for the second day. A maximum time of 100 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ?  \\
+\emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the company's inventory policy, a maximum of 3000 g of product A and 2000 g of product B can be stocked at the factory. For the first day, there is a demand for 1000 g of product A and 500 g of product B, and for the second day, there is a demand for 500 g of product A and 300 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product. There is a previous production planning for 1000 units of product A for the first day and 1500 units of product B for the second day. A maximum time of 100 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ?  \\
 
 A seção a seguir apresenta um modelo matemático para este problema.
 
@@ -198,19 +198,21 @@ P_i - \textrm{p}_i * T  = 0 \quad \forall i
 \end{equation}
 
 \begin{equation}
+\label{eq:mmeq02}
 P_i + UI_{i1} - D_{i1} - O_{i1} = \textrm{UI}_{i0} - \textrm{PO}_{i1}
 \end{equation}
 
 \begin{equation}
+\label{eq:mmeq03}
 UI_{id} - UI_{i(d-1)} - D_{id} - O_{id} = - \textrm{PO}_{id} \quad \forall i, \forall (d>1)
 \end{equation}
 
 \begin{equation}
-I_{1} + \sum_{i}\{P_i -  D_{i1} - O_{i1}\} = \textrm{I}_{0} 
+I_{1} + \sum_{i}\{P_i -  D_{i1} - O_{i1}\} = \textrm{I}_{0} - \sum_{i}{\textrm{PO}_{i1}}
 \end{equation}
 
 \begin{equation}
-I_{d} - I_{d-1} + \sum_{i}\{P_i -  D_{id} - O_{id}\} = 0 \quad \forall (d>1)
+I_{d} - I_{d-1} + \sum_{i}\{P_i -  D_{id} - O_{id}\} = - \sum_{i}{\textrm{PO}_{id}} \quad \forall (d>1)
 \end{equation}
 
 \begin{equation}
@@ -222,6 +224,7 @@ I_{d} - I_{d-1} + \sum_{i}\{P_i -  D_{id} - O_{id}\} = 0 \quad \forall (d>1)
 \end{equation}
 
 \begin{equation}
+\label{eq:mmeq09}
 D_{i1} \leq \textrm{UD}_{i1} \quad \forall i
 \end{equation}
 
@@ -246,93 +249,229 @@ where: \\
 Constraints in (2) relate the quantity produced, $P_i$, to batch processing time $T$. Constraints in (3) calculate the quantity produced, $P_i$, as a function of the primary variables, $D_i$, $O_i$ and $I_i$. Constraints in (4), (5), and (7) state that the quantity delivered to demand, the quantity shipped to the autlets, and the factory-stocked quantity of each product must be less than their respective known limits. Constraints (6) and (8) state that both the sum of product quantities sent to the autlets and the sum of product quantities stocked in the factory must be less than their respective maximum allowed values. The restriction in (9) establishes that there is a batch processing time limit, $\textrm{Z}$, that must be respected. And finally, the constraints in (10) inform the nature of the decision variables.
 
 
+\section{Exact optimizatin method}
+\label{sec:method}
 
-\section{Analytical solution}
-\label{sec:analyticalSol}
+Uma solução ótima para este problema pode ser construída através de duas etapas, conforme explicado a seguir: \\
+
+\emph{etapa 1: construção do MPBPTMP} \\
+
+passo 1: Desconsidere a produção a ser planejada:
+
+\begin{equation}
+\label{eq:sm01}
+P_i = 0, \forall i
+\end{equation}
+
+passo 2: Calcule os valores $D_{id}^+$, $D_{id}^-, \forall i, d$, usando as equações em (\ref{eq:sm02}) e (\ref{eq:sm03}):
+
+\begin{equation}
+\label{eq:sm02}
+D_{id}^+ = \sum_{k=1}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}  \quad \forall i, \forall d>1
+\end{equation}
+
+\begin{equation}
+\label{eq:sm03}
+D_{id}^- = \sum_{k=2}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}  \quad \forall i, \forall d>1
+\end{equation}
+
+Calcule $D_{i1}$ usando as equações em (\ref{eq:sm04}):
+
+\begin{equation}
+\label{eq:sm04}
+D_{i1} = \min \{\textrm{UD}_{i1}, \textrm{PO}_{i1}\} \quad \forall i
+\end{equation}
+
+queremos encontrar $D_{id}$, tal que a equação em (\ref{eq:sm04}) seja respeitada:
+
+\begin{equation}
+\label{eq:sm04}
+D_{id} = \min {x \in \{D_{id}^-, D_{id}^+\}} \textrm{ tal que } UI_{id} \geq 0
+\end{equation}
+
+Contudo, inicialmente iremos adotar:
+
+\begin{equation}
+\label{eq:sm04}
+D_{id} = D_{id}^- \quad \forall i, \forall d>1
+\end{equation}
 
 
 
-It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper. \\
+
+
+e calcule os valores de $D_{id}$ e $O_{id}, \forall i, d$.
+
+Inicialmente desconsidere a produção a ser planejada fazendo $P_i = 0, \forall i$, e 
+
+Tais valores podem ser calculados da seguinte forma:
+
+- distribua a produção previamente planejada para atender à demanda seguindo as restrições em (9) e para as duas equações derivadas de (10):
+
+as restrições em (14), (15) e (16) foram criadas porque queremos permitir que a demanda referênte ao dia atual seja atendida pela produção planejada para o dia atual e não por produções futuras.
+
+- distribua o restante da produção previamente planejada, se houver, para os outlests respeitando as restrições em (7) e (8).
+
+- faça $D_{id} = D_{id}^- \quad \forall i$;
+
+- calcule os valores para $UI_{id}, \forall i, d$, usando as equações em (3) e (4).
+
+- calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). 
+
+- recalcule o valor de $D_{id}$, usando:
+
+\begin{equation}
+D_{id} = D_{id}^- - \max\{0, UI_{id}\} \quad \forall i, d>0
+\end{equation}
+
+E então recalcule $UI_{id}, \forall i, (d>1)$, usando as equações em (4).
+
+
+Então, com base nos valores claculado, construímo o problema MPBPTM, usando as equações:
+
+\begin{equation}
+\textrm{UD}_{i} = \textrm{UD}_{i1} - D_{i1}, \quad \forall i
+\end{equation}
+
+\begin{equation}
+\textrm{I} = \min_{d} \{I_{d}\}
+\end{equation}
+
+\begin{equation}
+\textrm{UI}_{i} = \min_{d} \{UI_{id}\}, \quad \forall{i}
+\end{equation}
+
+\begin{equation}
+\textrm{O} = \textrm{O} - \sum_{i}{\sum_{d}{O_{id}}}
+\end{equation}
+
+\begin{equation}
+\textrm{UO}_{i} = \textrm{UO}_{i} - \sum_{d}{O_{id}}, \quad \forall i
+\end{equation} \\
+
+Sendo $\textrm{p}_{i}$ e $\textrm{Z}$ definidos de acordo com o problema apresentado.
+
+E resolvemos esse novo problema usando o método de partição do tempo proposto por Fraga (Fraga et al., 2023).\\
 
 \emph{Solution for the example presented before} \\
 
 Applying the method for solving the example presented in section \ref{sec:MBPTMP}, we have: \\
 
-$T' \leq \lfloor{1000 \textrm{ g} / (60 \textrm{ g}/\textrm{min})}\rfloor$ \\
+Como planejamento prévio de produção, temos:
 
-$T' \leq 16 \textrm{ min}$ \quad for A \\
+$\textrm{P}_{11} = 1000$,
+$\textrm{P}_{12} = 0$,
+$\textrm{P}_{21} = 0$,
+$\textrm{P}_{22} = 1500$. \\
 
-$T' \leq \lfloor{500 \textrm{ g} / (40 \textrm{ g}/\textrm{min})}\rfloor$ \\
+Como demanda, temos:
 
-$T' \leq 12 \textrm{ min}$ \quad for B \\
+$\textrm{UD}_{11} = 1000$,
+$\textrm{UD}_{12} = 500$,
+$\textrm{UD}_{21} = 500$,
+$\textrm{UD}_{22} = 300$. \\
 
-so: \\
+Distribuindo a produção para atender à demanda de acordo com as restrições em (9) e (10), temos: \\
 
-$T' = 12 \textrm{ min}$ \\
+$D_{11} = 1000$,
+$D_{12} = 0$,
+$D_{21} = 0$,
+$D_{22} = 300$. \\
+
+Não há nenhuma sobra relativa a produção de A. E há uma sobra de produção de 1200 unidades de B no segundo dia. \\
+
+Como estoque livre nos outlets, temos:
+
+$\textrm{UO}_{1} = 600$;
+$\textrm{UO}_{2} = 600$;
+$\textrm{O} = 1000$; \\
+
+Assim, distribuindo a sobra da produção para os outlets de acordo com as restrições em (7) e (8), temos:
+
+$O_{11} = 0$,
+$O_{12} = 0$,
+$O_{21} = 0$,
+$O_{22} = 600$. \\
+
+Com relação ao estoque livre em fábrica, temos:
+
+$\textrm{UI}_{10} = 3000$,
+$\textrm{UI}_{20} = 2000$,
+$\textrm{I}_{0} = 3000$. \\
+
+Portanto, calculando os valores disponíveis para produção de acordo com as equações em (3), (4) e (5), temos:
+
+$UI_{11} = 3000 - 1000 + 1000 + 0 =  3000$,
+$UI_{12} = 3000 - 0 + 0 + 0 =  3000$,
+$UI_{21} = 2000 - 0 + 0 + 0 =  2000$,
+$UI_{22} = 2000 - 1500 + 300 + 600 =  1400$. \\
+
+$I_{1} = 3000 - 1000 + 1000 + 0 = 3000$,
+$I_{2} = 3000 - 1500 + 300 + 600 = 2400$. \\
+
+Portanto temos agora as informações referentes aos limites estocagem em fábrica diário para cada produto assim como o limite de estocagem em fábrica diário para todos os produtos. \\
+
+Definindo o problema MPBPTM, temos: \\
+
+$\textrm{UD}_{1} = 1000 - 1000 = 0$,
+$\textrm{UD}_{2} = 0$ . \\
+
+$\textrm{I} = \min_{d} \{3000, 2400\} = 2400$. \\
+
+$ \textrm{UI}_{1} = \min_{d} \{3000, 3000\} = 3000 $,
+$ \textrm{UI}_{2} = \min_{d} \{2000, 1400\} = 1400 $. \\
+
+$\textrm{O} = 1000 - 600 = 400.$ \\
+
+$\textrm{UO}_{1} = 600 - 0 = 600$, 
+$\textrm{UO}_{2} = 600 - 600 = 0$. \\
+
+$\textrm{p}_{1} = 60$,
+$\textrm{p}_{2} = 40$.  \\
+
+$\textrm{Z} = 100$.  \\
+
+Então, aplicando o método de partição do tempo proposto pro Fraga, temos: \\
+
+$T' = 0 \textrm{ min}$ \\
 
 Then:\\
 
-$S_A = 1000 \textrm{ g} - 12 \textrm{ min} * 60 \textrm{ g}/\textrm{min} = 280 \textrm{ g}$ \\
+$S_A = 0 \textrm{ g}$ \\
 
-$S_B = 500 \textrm{ g} - 12 \textrm{ min} * 40 \textrm{ g}/\textrm{min} = 20 \textrm{ g}$ \\
+$S_B = 0 \textrm{ g}$ \\
 
 And so we have: \\
 
-$T'' \leq \lfloor{(3000 \textrm{ g} + 600 \textrm{ g} + 280 \textrm{ g}) / (60 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T'' \leq \lfloor{(3000 \textrm{ g} + 600 \textrm{ g} + 0 \textrm{ g}) / (60 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T'' \leq 64 \textrm{ min}$ \quad for A \\
+$T'' \leq 60 \textrm{ min}$ \quad for A \\
 
-$T'' \leq \lfloor{(2000 \textrm{ g} + 600 \textrm{ g} + 20 \textrm{ g}) / (40 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T'' \leq \lfloor{(1400 \textrm{ g} + 0 \textrm{ g} + 0 \textrm{ g}) / (40 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T'' \leq 65 \textrm{ min}$ \quad for B \\
+$T'' \leq 35 \textrm{ min}$ \quad for B \\
 
-$T'' \leq \lfloor{(1000 \textrm{ g} + 3000 \textrm{ g} + 300 \textrm{ g}) / (100 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T'' \leq \lfloor{(400 \textrm{ g} + 2400 \textrm{ g} + 0 \textrm{ g}) / (100 \textrm{ g}/\textrm{min})}\rfloor$ \\
 
-$T'' \leq 43 \textrm{ min}$ \quad for A and B \\
+$T'' \leq 28 \textrm{ min}$ \quad for A and B \\
 
 So that: \\
 
-$T'' = 43 \textrm{ min}$ \\
+$T'' = 28 \textrm{ min}$ \\
 
 So we have: \\
 
-$T = 55 \textrm{ min}$ \\
+$T = 28 \textrm{ min}$ \\
 
-As $T<\textrm{Z}$, then $T = 55 \textrm{ min}$ will certainly be the optimal solution. \\
+As $T<\textrm{Z}$, then $T = 28 \textrm{ min}$ will certainly be the optimal solution. \\
 
 In this case we will have: \\
 
-$P_A = 3300 \textrm{ g}$ e $P_B=2200 \textrm{ g}$ \\
+$P_A = 1,680  \textrm{ g}$ e $P_B=1,120 \textrm{ g}$ \\
 
-$D_A = 1000 \textrm{ g}$ e $D_B = 500 \textrm{ g}$ \\
+$D_A = 0 \textrm{ g}$ e $D_B = 0 \textrm{ g}$ \\
 
-$E_A = 2300 \textrm{ g}$ e $E_B = 1700 \textrm{ g}$ \\
-
-Note that it is not important to know the values of $O_i$ and $I_i$, $\forall i$, however, after determining a solution, these values can be found by taking a solution from the undetermined system of inequalities:
-
-\begin{equation}
-O_i + I_i = E_i \quad \forall i
-\end{equation}
-
-\begin{equation}
-O_i \leq \textrm{UO}_i \quad \forall i
-\end{equation}
-
-\begin{equation}
-\sum_i{O_i} \leq \textrm{O}
-\end{equation}
-
-\begin{equation}
-I_i \leq \textrm{UI}_i \quad \forall i
-\end{equation}
-
-\begin{equation}
-\sum_i{I_i} \leq \textrm{I}
-\end{equation}
-
-\begin{equation}
-O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
-\end{equation}
+$E_A = 1,680 \textrm{ g}$ e $E_B = 1,120 \textrm{ g}$ \\
 
 \section{Tests and results}
 \label{sec:results}
@@ -472,7 +611,7 @@ T.B. Fraga: Conceptualization, Project administration, Supervision, Software, Me
 \section{Acknowledgments}
 \label{sec:acknowledgments}
 
-We are enormously grateful to Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) and to Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) for the financial support provided to our projects. We also thank LINDO systems team for the LINGO software license, without which this work would not have been possible and the to the owner of the company in the plastics sector, who allowed us to learn about his company's production process. Finally, we would like to thank Pró-reitoria de Extensão e Cultura da UFPE (PROExC) and the Research Director of Propesqi (Pró-reitoria de Pesquisa e Inovação da UFPE) for their support and recognition of our work, and dear Professors Antônio José da Silva Neto and João Flávio Vieira de Vasconcellos from IPRJ/UERJ, who contributed significantly to the formation of essential skills for the development of our projects. We also thank my co-worker Marcos Luiz Henrique, for having helped by evaluating the mathematical model and solution method proposed in this paper.
+We are enormously grateful to Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) and to Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) for the financial support provided to our projects. We also thank LINDO systems team for the LINGO software license, without which this work would not have been possible and the to the owner of the company in the plastics sector, who allowed us to learn about his company's production process. Finally, we would like to thank Pró-reitoria de Extensão e Cultura da UFPE (PROExC) and the Research Director of Propesqi (Pró-reitoria de Pesquisa e Inovação da UFPE) for their support and recognition of our work, and dear Professors Antônio José da Silva Neto and João Flávio Vieira de Vasconcellos from IPRJ/UERJ, who contributed significantly to the formation of essential skills for the development of our projects.
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
