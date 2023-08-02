@@ -146,9 +146,9 @@ In the next sections, a presentation of problem is made along with an applicatio
 \section{Multi-period and multi-product batch processing time maximization problem}
 \label{sec:MBPTMP}
 
-In MPMPBPTM problem consideramos um horizonte de planejamento com $\textrm{ND}$ dias ($\textrm{ND} \geq 1$) e uma demanda diária ($\textrm{UD}_{id} \geq 0$) durante este período para cada produto do lote considerado. Adicionalmente, já existe um plano de produção prévio, de forma que é possível que já exista uma programação anterior de produção para cada produto do lote. Assim a disponibilidade para estocagem e para envios para as lojas de fábrica ficará sujeita a alteração de acordo com o planejamento prévio de produção.
+In MPMPBPTM problem consideramos um horizonte de planejamento com $\textrm{ND}$ dias ($\textrm{ND} \geq 1$) e uma demanda diária ($\textrm{UD}_{id} \geq 0$) durante este período para cada produto do lote considerado. Adicionalmente, já existe um plano de produção prévio, de forma que é possível que já exista uma programação anterior de produção para cada produto do lote. Assim a disponibilidade para estocagem e para envios para as lojas de fábrica ficará sujeita a alteração de acordo com o planejamento prévio de produção. O problema consiste em determinar a tempo máximo de processamento para o lote considerado, levando em conta as restrições de limite consideradas. For a better understanding of the problem, an example is presented below. \\
 
-O problema consiste em determinar a tempo máximo de processamento para o lote considerado, levando em conta as restrições de limite consideradas.  
+\emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the company's inventory policy, a maximum of 3000 g of product A and 2000 g of product B can be stocked at the factory. For the first day, there is a demand for 1000 g of product A and 500 g of product B, and for the second day, there is a demand for 500 g of product A and 300 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product.There is a previous production planning for 1000 units of product A for the first day and 800 units of product B for the second day. A maximum time of 100 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ?  \\
 
 A seção a seguir apresenta um modelo matemático para este problema.
 
@@ -250,143 +250,7 @@ Constraints in (2) relate the quantity produced, $P_i$, to batch processing time
 \section{Analytical solution}
 \label{sec:analyticalSol}
 
-It is possible to consider the factory stock and the outlets stock as single stock, so we have:
 
-\begin{equation}
-E_i = O_i + I_i
-\end{equation}
-
-where $E_i$ is the sum of the quantity stored at the factory and the quantity sent to the outlets of the product $i$. \\
-
-So that:
-
-\begin{equation}
-E_i \leq \textrm{UO}_i + \textrm{UI}_i
-\end{equation}
-
-and
-
-\begin{equation}
-\sum_i {E_i} \leq \textrm{O} + \textrm{I}
-\end{equation}
-
-
-It is also possible to split the batch processing time into two time slots:
-
-\begin{equation}
-T = T' + T''
-\end{equation}
-
-and consider that $T'$ is the maximum processing time used only for production that will meet the demand. Thus, we can find $T'$, solving the reduced problem:
-
-\begin{equation}
-max \quad T'
-\end{equation}
-
-$s.t.$
-
-\begin{equation}
-D_i - \textrm{p}_i * T'  = 0 \quad \forall i
-\end{equation}
-
-\begin{equation}
-D_i \leq \textrm{UD}_i \quad \forall i
-\end{equation}
-
-\begin{equation}
-D_i, T' \in  \mathbb{Z}^+ \quad \forall i
-\end{equation}
-
-This reduced problem can be rewritten in the form:
-
-\begin{equation}
-max \quad T'
-\end{equation}
-
-$s.t.$ \\
-
-\begin{equation}
-T'  \leq \lfloor{\textrm{UD}_i / \textrm{p}_i}\rfloor \quad \forall i
-\end{equation}
-
-So we have that $T'$ will be the smallest of the ratios $\lfloor{\textrm{UD}_i / \textrm{p}_i}\rfloor$ of all products. \\
-
-Once we find the value of $T'$, we can calculate the value of unmet demand for each product after $T'$, $S_i$, through the equations in (\ref{eq:unmet1}).
-
-\begin{equation}
-\label{eq:unmet1}
-S_i = \textrm{UD}_i - \textrm{p}_i * T' \quad \forall i
-\end{equation}
-
-Now we consider that the time interval $T''$ will be used for the production of the quantities that will be stored (in the factory and in the outlets), as well as of the demand not met by the production in the first time interval, $S_i$. 
-
-In this case, we can find $T'''$ by solving the second reduced problem:
-
-\begin{equation}
-max \quad T''
-\end{equation}
-
-$s.t.$
-
-\begin{equation}
-E_i - \textrm{p}_i * T''  = 0 \quad \forall i
-\end{equation}
-
-\begin{equation}
-E_i - S_i \leq \textrm{UO}_i + \textrm{UI}_i \quad \forall i
-\end{equation}
-
-\begin{equation}
-\sum_i {E_i - S_i} \leq \textrm{O} + \textrm{I}
-\end{equation}
-
-\begin{equation}
-E_i, T'' \in  \mathbb{Z}^+ \quad \forall i
-\end{equation}
-
-Again, using a little algebra, we can rewrite this reduced problem in the form:
-
-\begin{equation}
-max \quad T''
-\end{equation}
-
-$s.t.$
-
-\begin{equation}
-T'' \leq \lfloor{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i}\rfloor  \quad \forall i
-\end{equation}
-
-\begin{equation}
-T'' \leq \lfloor{(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}}\rfloor
-\end{equation}
-
-So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value. \\
-
-So, the analytical method can be decomposed into 4 steps: \\
-
-step 1: find $T'$, where:
-\begin{equation}
-T' = \lfloor{\min_{\forall i} \{\textrm{UD}_i / \textrm{p}_i\}}\rfloor
-\end{equation}
-
-step 2: calculate $S_i$ for all products.
-\begin{equation}
-\label{eq:unmet}
-S_i = \textrm{UD}_i - \textrm{p}_i * T' \quad \forall i
-\end{equation}
-
-step 3: find $T''$, where:
-\begin{equation}
-T'' = \lfloor{\min \{\min_{\forall i} \{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\},(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}\}}\rfloor
-\end{equation}
-
-step 4: calculate $T$, where: 
-\begin{equation}
-T = T' + T''
-\end{equation}
-\begin{equation}
-T = \min \{T , \textrm{Z}\}
-\end{equation}
 
 It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper. \\
 
