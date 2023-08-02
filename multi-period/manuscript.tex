@@ -198,16 +198,17 @@ P_i - \textrm{p}_i * T  = 0 \quad \forall i
 \end{equation}
 
 \begin{equation}
-\label{eq:mmeq02}
+\label{eq:mmeq03}
 P_i + UI_{i1} - D_{i1} - O_{i1} = \textrm{UI}_{i0} - \textrm{PO}_{i1}
 \end{equation}
 
 \begin{equation}
-\label{eq:mmeq03}
+\label{eq:mmeq04}
 UI_{id} - UI_{i(d-1)} - D_{id} - O_{id} = - \textrm{PO}_{id} \quad \forall i, \forall (d>1)
 \end{equation}
 
 \begin{equation}
+\label{eq:mmeq05}
 I_{1} + \sum_{i}\{P_i -  D_{i1} - O_{i1}\} = \textrm{I}_{0} - \sum_{i}{\textrm{PO}_{i1}}
 \end{equation}
 
@@ -263,60 +264,80 @@ passo 1: Desconsidere a produção a ser planejada:
 P_i = 0, \forall i
 \end{equation}
 
-passo 2: Calcule os valores $D_{id}^+$, $D_{id}^-, \forall i, d$, usando as equações em (\ref{eq:sm02}) e (\ref{eq:sm03}):
+passo 2: 
+
+Calcule $D_{i1}$ usando as equações em (\ref{eq:sm02}):
 
 \begin{equation}
 \label{eq:sm02}
-D_{id}^+ = \sum_{k=1}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}  \quad \forall i, \forall d>1
-\end{equation}
-
-\begin{equation}
-\label{eq:sm03}
-D_{id}^- = \sum_{k=2}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}  \quad \forall i, \forall d>1
-\end{equation}
-
-Calcule $D_{i1}$ usando as equações em (\ref{eq:sm04}):
-
-\begin{equation}
-\label{eq:sm04}
 D_{i1} = \min \{\textrm{UD}_{i1}, \textrm{PO}_{i1}\} \quad \forall i
 \end{equation}
 
-queremos encontrar $D_{id}$, tal que a equação em (\ref{eq:sm04}) seja respeitada:
+Calcule o valor da sobra da produção não distribuída, $\textrm{S}_{id}, \forall i$, pelas equações em (\ref{eq:sm03}) e (\ref{eq:sm04}):
+
+\begin{equation}
+\label{eq:sm03}
+\textrm{S}_{i1} = \textrm{PO}_{i1} - D_{i1}, \quad \forall i
+\end{equation}
 
 \begin{equation}
 \label{eq:sm04}
-D_{id} = \min {x \in \{D_{id}^-, D_{id}^+\}} \textrm{ tal que } UI_{id} \geq 0
+\textrm{S}_{id} = \textrm{PO}_{id}, \quad \forall i, (d>1)
+\end{equation}
+
+Calcule os valores $D_{id}^+$ e $D_{id}^-, \forall i, d$, usando ambas as equações entre (\ref{eq:sm05}) e (\ref{eq:sm08}) aplicando essas quatro equações de forma ordenada e progressiva em relação à $d$, ou seja, primeiro as equações (\ref{eq:sm05}) e (\ref{eq:sm07})  para $d = 2$, depois as equações (\ref{eq:sm06}) e (\ref{eq:sm08}) para $d = 2$, em seguida as equações (\ref{eq:sm05}) e (\ref{eq:sm07}) para $d=3$, depois depois as equações (\ref{eq:sm06}) e (\ref{eq:sm08}) para $d = 3$, etc.
+
+\begin{equation}
+\label{eq:sm05}
+D_{id}^+ =  \min\{(\sum_{k=1}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}), \sum_{k=1}^{d}{\textrm{S}_{ik}^+}\}  \quad \forall i, \forall (d>1)
+\end{equation}
+
+\begin{equation}
+\label{eq:sm06}
+\textrm{S}_{id}^+ = \textrm{PO}_{id} - D_{id}^+, \quad \forall i, \forall (d>1)
+\end{equation}
+
+\begin{equation}
+\label{eq:sm07}
+D_{id}^- =  \min\{(\sum_{k=2}^{d}{\textrm{UD}_{ik}} - \sum_{k=2}^{d-1}{D_{ik}}), \sum_{k=1}^{d}{\textrm{S}_{ik}^-}\}  \quad \forall i, \forall (d>1)
+\end{equation}
+
+\begin{equation}
+\label{eq:sm08}
+\textrm{S}_{id}^- = \textrm{PO}_{id} - D_{id}^-, \quad \forall i, \forall (d>1)
+\end{equation}
+
+Queremos encontrar $D_{id}, \forall i,(d>1)$, tal que as restrições em (\ref{eq:sm09}) sejam respeitadas:
+
+\begin{equation}
+\label{eq:sm09}
+D_{id} = \min {x \in \{D_{id}^-, D_{id}^+ \quad | \quad UI_{id} \geq 0\}} \quad \forall i, \forall (d>1)
 \end{equation}
 
 Contudo, inicialmente iremos adotar:
 
 \begin{equation}
-\label{eq:sm04}
-D_{id} = D_{id}^- \quad \forall i, \forall d>1
+\label{eq:sm10}
+D_{id} = D_{id}^- \quad \forall i, \forall (d>1)
 \end{equation}
 
+\begin{equation}
+\label{eq:sm10}
+\textrm{S}_{id} = \textrm{S}_{id}^- \quad \forall i, \forall (d>1)
+\end{equation}
 
+passo 3: Calcule os valores $O_{id}, \forall i, d$, usando as equações em (\ref{eq:sm11}):
 
+\begin{equation}
+\label{eq:sm11}
+O_{id} = \min \{\textrm{S}_{id}, (\textrm{UO}_i - \sum_{k=1}^{d-1}{O_{ik}}) , (\textrm{O}- \sum_{j=1}^{i-1}\sum_{k=1}^{d-1}{O_{jk}}) \} \quad \forall i, d
+\end{equation}
 
+passo 4: 
 
-e calcule os valores de $D_{id}$ e $O_{id}, \forall i, d$.
+calcule os valores para $UI_{id}, \forall i, d$, usando as equações em (\ref{eq:mmeq03}) e (\ref{eq:mmeq04})).
 
-Inicialmente desconsidere a produção a ser planejada fazendo $P_i = 0, \forall i$, e 
-
-Tais valores podem ser calculados da seguinte forma:
-
-- distribua a produção previamente planejada para atender à demanda seguindo as restrições em (9) e para as duas equações derivadas de (10):
-
-as restrições em (14), (15) e (16) foram criadas porque queremos permitir que a demanda referênte ao dia atual seja atendida pela produção planejada para o dia atual e não por produções futuras.
-
-- distribua o restante da produção previamente planejada, se houver, para os outlests respeitando as restrições em (7) e (8).
-
-- faça $D_{id} = D_{id}^- \quad \forall i$;
-
-- calcule os valores para $UI_{id}, \forall i, d$, usando as equações em (3) e (4).
-
-- calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). 
+calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). 
 
 - recalcule o valor de $D_{id}$, usando:
 
