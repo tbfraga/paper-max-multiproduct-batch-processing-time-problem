@@ -146,11 +146,11 @@ In the next sections, a presentation of problem is made along with an applicatio
 \section{Multi-period and multi-product batch processing time maximization problem}
 \label{sec:MBPTMP}
 
-In MPMPBPTM problem consideramos um horizonte de planejamento com $\textrm{ND}$ dias ($\textrm{ND} \geq 1$) e uma demanda diária ($\textrm{UD}_{id} \geq 0$) durante este período para cada produto do lote considerado. Adicionalmente, já existe um plano de produção prévio, de forma que é possível que já exista uma programação anterior de produção para cada produto do lote. Assim a disponibilidade para estocagem e para envios para as lojas de fábrica ficará sujeita a alteração de acordo com o planejamento prévio de produção. O problema consiste em determinar a tempo máximo de processamento para o lote considerado, levando em conta as restrições de limite consideradas. For a better understanding of the problem, an example is presented below. \\
+In MPMPBPTM problem we consider a planning horizon with $\textrm{ND}$ days, ($\textrm{ND} \geq 1$), and a daily demand ($\textrm{UD}_{id} \geq 0$) during this period for each product of the batch. Additionally, there is already a prior production plan, so that it is possible that there is already a previous production program for each product of the batch. Thus the availability for factory storage and shipping to outlets will be subject to change according to prior production planning. The problem is to determine a maximum processing time for the batch, taking into account the restrictions considered. For a better understanding of the problem, an example is presented below. \\
 
 \emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the company's inventory policy, a maximum of 3000 g of product A and 2000 g of product B can be stocked at the factory. For the first day, there is a demand for 1000 g of product A and 500 g of product B, and for the second day, there is a demand for 500 g of product A and 300 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product. There is a previous production planning for 1000 units of product A for the first day and 1500 units of product B for the second day. A maximum time of 100 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ?  \\
 
-A seção a seguir apresenta um modelo matemático para este problema.
+The following section presents a mathematical model for this problem.
 
 \section{Mathematical model}
 \label{sec:mathModel}
@@ -171,13 +171,13 @@ $\textrm{Z}$ is the timeout for batch processing; \\
 
 $UI_{id}$ is the maximum quantity allowed for stocking in the factory the product $i$ on day $d$;
 
-being $\textrm{UI}_{i0}$ the maximum quantity allowed for stocking in the factory the product $i$ on the (\emph{first}) planning day ($d=1$);
+being $\textrm{UI}_{i0}$ the maximum quantity allowed for $P_i$;
 
 $I_{d}$ is the free factory storage of all products on the end of the day $d$;
 
 being $\textrm{I}_{0}$ the initial free inventory for all products on factory on the start of the (\emph{first}) planning day ($d=1$); \\
 
-$P_i$ is the amount of product $i$ to be produced on batch;
+$P_i$ is the amount of product $i$ to be produced on batch on the current date (first planning day);
 
 $D_{id}$ is the amount of product $i$ delivered for the demand on day $d$;
 
@@ -255,7 +255,7 @@ Constraints in (2) relate the quantity produced, $P_i$, to batch processing time
 
 Uma solução ótima para este problema pode ser construída através de duas etapas, conforme explicado a seguir: \\
 
-\emph{etapa 1: construção do MPBPTMP} \\
+\emph{etapa 1: distribuição da produção previamente planejada} \\
 
 passo 1: Desconsidere a produção a ser planejada:
 
@@ -273,23 +273,23 @@ Calcule $D_{i1}$ usando as equações em (\ref{eq:sm02}):
 D_{i1} = \min \{\textrm{UD}_{i1}, \textrm{PO}_{i1}\} \quad \forall i
 \end{equation}
 
-Calcule o valor da sobra da produção não distribuída, $\textrm{S}_{id}, \forall i$, pelas equações em (\ref{eq:sm03}) e (\ref{eq:sm04}):
+Calcule o valor da produção não ainda não alocada, $\textrm{S}_{id}, \forall i$, pelas equações em (\ref{eq:sm03}):
 
 \begin{equation}
 \label{eq:sm03}
 \textrm{S}_{i1} = \textrm{PO}_{i1} - D_{i1}, \quad \forall i
 \end{equation}
 
+Calcule os valores $D_{id}^+$, $\textrm{S}_{id}^+$, $D_{id}^-$ e $\textrm{S}_{id}^-, \forall i$, usando as equações de (\ref{eq:sm04}) à (\ref{eq:sm08}).
+
 \begin{equation}
 \label{eq:sm04}
-\textrm{S}_{id} = \textrm{PO}_{id}, \quad \forall i, (d>1)
+D_{i1}^+ = D_{i1}^- = D_{i1}
 \end{equation}
-
-Calcule os valores $D_{id}^+$ e $D_{id}^-, \forall i, d$, usando ambas as equações entre (\ref{eq:sm05}) e (\ref{eq:sm08}) aplicando essas quatro equações de forma ordenada e progressiva em relação à $d$, ou seja, primeiro as equações (\ref{eq:sm05}) e (\ref{eq:sm07})  para $d = 2$, depois as equações (\ref{eq:sm06}) e (\ref{eq:sm08}) para $d = 2$, em seguida as equações (\ref{eq:sm05}) e (\ref{eq:sm07}) para $d=3$, depois depois as equações (\ref{eq:sm06}) e (\ref{eq:sm08}) para $d = 3$, etc.
 
 \begin{equation}
 \label{eq:sm05}
-D_{id}^+ =  \min\{(\sum_{k=1}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}), \sum_{k=1}^{d}{\textrm{S}_{ik}^+}\}  \quad \forall i, \forall (d>1)
+D_{id}^+ =  \min\{(\sum_{k=1}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}), (\sum_{k=1}^{d-1}{(\textrm{PO}_{ik} - D_{ik}^+) + \textrm{PO}_{id}})\}  \quad \forall i, \forall (d>1)
 \end{equation}
 
 \begin{equation}
@@ -299,7 +299,7 @@ D_{id}^+ =  \min\{(\sum_{k=1}^{d}{\textrm{UD}_{ik}} - \sum_{k=1}^{d-1}{D_{ik}}),
 
 \begin{equation}
 \label{eq:sm07}
-D_{id}^- =  \min\{(\sum_{k=2}^{d}{\textrm{UD}_{ik}} - \sum_{k=2}^{d-1}{D_{ik}}), \sum_{k=1}^{d}{\textrm{S}_{ik}^-}\}  \quad \forall i, \forall (d>1)
+D_{id}^- =  \min\{(\sum_{k=2}^{d}{\textrm{UD}_{ik}} - \sum_{k=2}^{d-1}{D_{ik}}), (\sum_{k=1}^{d-1}{(\textrm{PO}_{ik} - D_{ik}^-) + \textrm{PO}_{id}})\}  \quad \forall i, \forall (d>1)
 \end{equation}
 
 \begin{equation}
@@ -307,14 +307,14 @@ D_{id}^- =  \min\{(\sum_{k=2}^{d}{\textrm{UD}_{ik}} - \sum_{k=2}^{d-1}{D_{ik}}),
 \textrm{S}_{id}^- = \textrm{PO}_{id} - D_{id}^-, \quad \forall i, \forall (d>1)
 \end{equation}
 
-Queremos encontrar $D_{id}, \forall i,(d>1)$, tal que as restrições em (\ref{eq:sm09}) sejam respeitadas:
+Queremos encontrar $D_{id}$, $ D_{id}^- \leq D_{id} \leq D_{id}^+, \forall i,(d>1) $, tal que as restrições em (\ref{eq:sm09}) sejam respeitadas:
 
 \begin{equation}
 \label{eq:sm09}
 D_{id} = \min {x \in \{D_{id}^-, D_{id}^+ \quad | \quad UI_{id} \geq 0\}} \quad \forall i, \forall (d>1)
 \end{equation}
 
-Contudo, inicialmente iremos adotar:
+Contudo, para solução do problema, iremos adotar:
 
 \begin{equation}
 \label{eq:sm10}
@@ -337,21 +337,14 @@ passo 4:
 
 calcule os valores para $UI_{id}, \forall i, d$, usando as equações em (\ref{eq:mmeq03}) e (\ref{eq:mmeq04})).
 
-calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). 
+calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). \\
 
-- recalcule o valor de $D_{id}$, usando:
+\emph{Step 2: MPBPTM problem construction} \\
 
-\begin{equation}
-D_{id} = D_{id}^- - \max\{0, UI_{id}\} \quad \forall i, d>0
-\end{equation}
-
-E então recalcule $UI_{id}, \forall i, (d>1)$, usando as equações em (4).
-
-
-Então, com base nos valores claculado, construímo o problema MPBPTM, usando as equações:
+So, based on calculated values, we built the MPBPTM problem using the equations:
 
 \begin{equation}
-\textrm{UD}_{i} = \textrm{UD}_{i1} - D_{i1}, \quad \forall i
+\textrm{UD}_{i} = \textrm{UD}_{i1} - D_{i1} \quad \forall i
 \end{equation}
 
 \begin{equation}
@@ -370,9 +363,34 @@ Então, com base nos valores claculado, construímo o problema MPBPTM, usando as
 \textrm{UO}_{i} = \textrm{UO}_{i} - \sum_{d}{O_{id}}, \quad \forall i
 \end{equation} \\
 
-Sendo $\textrm{p}_{i}$ e $\textrm{Z}$ definidos de acordo com o problema apresentado.
+Being $\textrm{p}_{i}$ and $\textrm{Z}$ defined according to the MPMPBPTM problem presented. \\
 
-E resolvemos esse novo problema usando o método de partição do tempo proposto por Fraga (Fraga et al., 2023).\\
+Obs: Note that some values of $UI_{id}$ and  $I_{d}$ can be negative. This means that, in prior planning, some demand of the first day will be met by some previous planned production performed in a future period and that cannot be modified, i.e. $D_{id} > D_{id}^-$ for at least one ordained pair $(i,d)$. In this case, considering that prior planning was a viable planning, the negative values of the $UI_{id}$ and $I_{d}$ will be offset by the positive surplus values of $\textrm{UD}_{i}$, so this will not result in change in the optimal solution of the problem through the method used in the next step. \\
+
+The possible negative maximum values for variables are defined by the following equations. If this equations are not met, it means that initial planning was not a viable planning.
+
+\begin{equation}
+\max_d\{UI_{id}\} \geq \textrm{UD}_{i1} - D_{i1}, \quad \forall i
+\end{equation}
+
+\begin{equation}
+\max_d\{I_{d}\} \geq \sum_{i}\{ \textrm{UD}_{i1} - D_{i1} \}
+\end{equation}
+
+\emph{Step 3: MPBPTM solution by Fraga's analytical method} \\
+
+Once the MPBPTM problem is built, it can be solved by the analytical method proposed by Fraga (Fraga et al., 2023). This method can be resumed into two steps, as follows: \\
+
+step 1: find $T^*$, where:
+\begin{equation}
+T^* = \lfloor{\min \{\min_{\forall i} \{(\textrm{UO}_i + \textrm{UI}_i + \textrm{UD}_i) / \textrm{p}_i\},(\textrm{O} + \textrm{I} + \sum_i \textrm{UD}_i) / \sum_i {\textrm{p}_i}\}}\rfloor
+\end{equation}
+
+step 2: calculate $T$, where: 
+
+\begin{equation}
+T = \min \{T^* , \textrm{Z}\}
+\end{equation} \\
 
 \emph{Solution for the example presented before} \\
 

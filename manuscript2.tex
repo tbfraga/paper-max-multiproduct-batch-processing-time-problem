@@ -335,7 +335,7 @@ E_i - S_i \leq \textrm{UO}_i + \textrm{UI}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
-\sum_i ({E_i - S_i}) \leq \textrm{O} + \textrm{I}
+\sum_i {E_i - S_i} \leq \textrm{O} + \textrm{I}
 \end{equation}
 
 \begin{equation}
@@ -382,8 +382,22 @@ step 4: calculate $T$, where:
 \begin{equation}
 T = T' + T''
 \end{equation}
+
 \begin{equation}
 T = \min \{T , \textrm{Z}\}
+\end{equation}
+
+Note that there will be no change in the optimal solution if it is considered to $T'$, a value between 0 and the value found in step 1. Thus it is possible to use a simplification of the method presented, making $T' = 0$. In this case $S_i = \textrm{UD}_i, \forall i$. The simplified version of the method is presented below: \\
+
+step 1: find $T^*$, where:
+\begin{equation}
+T^* = \lfloor{\min \{\min_{\forall i} \{(\textrm{UO}_i + \textrm{UI}_i + \textrm{UD}_i) / \textrm{p}_i\},(\textrm{O} + \textrm{I} + \sum_i \textrm{UD}_i) / \sum_i {\textrm{p}_i}\}}\rfloor
+\end{equation}
+
+step 2: calculate $T$, where: 
+
+\begin{equation}
+T = \min \{T^* , \textrm{Z}\}
 \end{equation}
 
 It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper. \\
