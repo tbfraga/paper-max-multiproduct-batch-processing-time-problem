@@ -341,7 +341,96 @@ calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). \
 
 \emph{Step 2: MPBPTM problem construction} \\
 
+passo 1: Calcular a quantidade limite para estocagem em fábrica para cada produto, $\textrm{UI}_{i}$.
+
+\begin{equation}
+	\max \textrm{UI}_{i}
+\end{equation}
+
+\emph{sj. to}:
+
+\begin{equation}
+	\textrm{UI}_{i} \leq UI_{i1}
+\end{equation}
+
+\begin{equation}
+	\textrm{UI}_{i} \leq UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}
+\end{equation}
+
+Para compreender a solução proposta, vamos considerar um exemplo:
+
+para 3 dias de planejamento, temos:
+
+dia --> estoque disponível --> demanda não atendida no dia --> soma da demanda não atendida
+
+d1 --> 40
+
+d2 --> 20 --> 10 --> 10
+
+d3 --> 15 --> 5 --> 15
+
+d4 --> 10 --> 0 --> 15
+
+considerando apenas o limite de estoque para o primeiro dia, a parcela da produção que pode ser estocada em fábrica é $40$.
+
+Contudo, esse estoque ficará em fábrica durante todo o período de planejamento considerado, exceto se houver saída para atender à demanda.
+
+Assim, no segundo dia o estoque será igual ao estoque do primeiro dia menos o valor que sairá para atender à demanda acumulada para o dia.
+
+o limite de recebimento de estoque do segundo dia será o limite de estoque mais a demanda não atendida.
+
+Então das 40 unidades estocadas em fábrica no primeiro dia, dez unidades serão entregues à demanda e 30 unidades ficarão estocadas em fábrica.
+
+Como o limite de estoque em fábrica para o segundo dia é de 20 unidades, então isso significa que há 10 unidades excedentes em estoque de fábrica. Ou seja, o estoque do primeiro dia, e portanto a produção devem ser diminuídos em 10 unidades.
+
+Ou seja, temos um limite de estoque em fábrica para o primeiro dia deve ser de 30 unidades.
+
+Então estocando 30 unidades em fábrica no primeiro dia, e no segundo dia, como 10 unidades serão entregues para atender à demanda, teremos 20 unidades estocadas.
+
+No terceiro dia, mais 5 unidades serão entregues à demanda e o estoque ficará com 15 unidades.
+
+Já no quato dia, nada será entregue a demanda de forma que teremos um estoque de 15 unidades. Contudo o limite de estocagem para o quarto dia é de 10 unidades, assim teremos 5 unidades excedentes. Ou seja, é necessário que o estoque do primeiro dia seja reduzido em 5 unidades. 
+
+A partir do raciocínio apresentado, podemos verificar a limitação do estoque em fábrica no primeiro dia deve levar em consideração às limitações de recebimento de estoque para cada dia seguinte, respeitando às retrições
+
+\begin{equation}
+	\textrm{UI}_{i} \leq UI_{i1}
+\end{equation}
+
+\begin{equation}
+	\textrm{UI}_{i} \leq UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}
+\end{equation}
+
+Aqui temos, para o produto $p$:
+
+\begin{equation}
+	RL_{i1} \leq 40
+\end{equation}
+
+\begin{equation}
+	RL_{i2} \leq 20 + 10 , RL_{i2} \leq 30
+\end{equation}
+
+\begin{equation}
+	RL_{i3} \leq 15 + (10+5) , RL_{i3} \leq 30
+\end{equation}
+
+\begin{equation}
+	RL_{i4} \leq 10 + (10+5) , RL_{i4} \leq 25
+\end{equation}
+
+então temos que:
+
+\begin{equation}
+	\textrm{UI}_{i} = \min\{UI_{i1}, \min_d\{UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
+\end{equation}
+ 
+
 So, based on calculated values, we built the MPBPTM problem using the equations:
+
+\begin{equation}
+PL_id = UI_{i(d)} - UD_{i} \quad \forall i
+\end{equation}
 
 \begin{equation}
 \textrm{UD}_{i} = \textrm{UD}_{i1} - D_{i1} \quad \forall i
