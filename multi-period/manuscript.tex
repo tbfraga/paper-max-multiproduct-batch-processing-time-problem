@@ -340,7 +340,6 @@ calcule os valores para $UI_{id}, \forall i, d$, usando as equações em (\ref{e
 calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). \\
 
 \emph{Step 2: MPBPTM problem construction} \\
- 
 
 So, based on calculated values, we built the MPBPTM problem using the equations:
 
@@ -353,7 +352,7 @@ So, based on calculated values, we built the MPBPTM problem using the equations:
 \end{equation}
 
 \begin{equation}
-	\textrm{UI}_{i} = \min_d\{UI_{id}\}
+\textrm{UI}_{i} = \min_{d} \{UI_{id}\}, \quad \forall{i}
 \end{equation}
 
 \begin{equation}
@@ -399,21 +398,21 @@ Applying the method for solving the example presented in section \ref{sec:MBPTMP
 
 Como planejamento prévio de produção, temos:
 
-$\textrm{P}_{11} = 800$,
+$\textrm{P}_{11} = 1000$,
 $\textrm{P}_{12} = 0$,
-$\textrm{P}_{21} = 2,500$,
-$\textrm{P}_{22} = 1,500$. \\
+$\textrm{P}_{21} = 0$,
+$\textrm{P}_{22} = 1500$. \\
 
 Como demanda, temos:
 
-$\textrm{UD}_{11} = 1,000$,
+$\textrm{UD}_{11} = 1000$,
 $\textrm{UD}_{12} = 500$,
 $\textrm{UD}_{21} = 500$,
 $\textrm{UD}_{22} = 300$. \\
 
 Distribuindo a produção para atender à demanda de acordo com as restrições em (9) e (10), temos: \\
 
-$D_{11} = 800$,
+$D_{11} = 1000$,
 $D_{12} = 0$,
 $D_{21} = 0$,
 $D_{22} = 300$. \\
@@ -445,15 +444,6 @@ $UI_{11} = 3000 - 1000 + 1000 + 0 =  3000$,
 $UI_{12} = 3000 - 0 + 0 + 0 =  3000$,
 $UI_{21} = 2000 - 0 + 0 + 0 =  2000$,
 $UI_{22} = 2000 - 1500 + 300 + 600 =  1400$. \\
-
-
-$UI_{11} = 4,800 - 800 +  1000 = 4,000$
-$UI_{11} = 4,000 - 2,500 + 500 = 2,000$
-
-Na forma de distribuição planjeda - primeiro para atender demanda, depois para outlets e por último para estoque em fábrica... 
-no planejamento prévio, se eu reduzo o espeço disponível em estoque, do dia anterior para o dia em análise, é porque a produção extra foi suficiente para atender à toda demanda acumulada para o dia e também envio para outlet e sobrou produção para o estoque. Assim só e possível reduzir espaço disponível em estoque, se demanda acumulada não atendida for nula, assim como espaço disponível em outlets nulo para o produto. Portanto fórmula anterior (29) não carrega nenhum sentido.
-
-O mesmo pensamento pode ser considerado no caso do limite de estoque geral. 
 
 $I_{1} = 3000 - 1000 + 1000 + 0 = 3000$,
 $I_{2} = 3000 - 1500 + 300 + 600 = 2400$. \\
