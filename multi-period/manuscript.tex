@@ -340,114 +340,20 @@ calcule os valores para $UI_{id}, \forall i, d$, usando as equações em (\ref{e
 calcule os valores para $I_{i}, \forall i$, usando as equações em (5) e (6). \\
 
 \emph{Step 2: MPBPTM problem construction} \\
-
-passo 1: Calcular a quantidade limite para estocagem em fábrica para cada produto, $\textrm{UI}_{i}$.
-
-\begin{equation}
-	\max \textrm{UI}_{i}
-\end{equation}
-
-\emph{sj. to}:
-
-\begin{equation}
-	\textrm{UI}_{i} \leq UI_{i1}
-\end{equation}
-
-\begin{equation}
-	\textrm{UI}_{i} \leq UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}
-\end{equation}
-
-Para compreender a solução proposta, vamos considerar um exemplo:
-
-para 3 dias de planejamento, temos:
-
-dia --> estoque disponível --> demanda não atendida no dia --> soma da demanda não atendida
-
-d1 --> 40
-
-d2 --> 20 --> 10 --> 10
-
-d3 --> 15 --> 5 --> 15
-
-d4 --> 10 --> 0 --> 15
-
-considerando apenas o limite de estoque para o primeiro dia, a parcela da produção que pode ser estocada em fábrica é $40$.
-
-Contudo, esse estoque ficará em fábrica durante todo o período de planejamento considerado, exceto se houver saída para atender à demanda.
-
-Assim, no segundo dia o estoque será igual ao estoque do primeiro dia menos o valor que sairá para atender à demanda acumulada para o dia.
-
-o limite de recebimento de estoque do segundo dia será o limite de estoque mais a demanda não atendida.
-
-Então das 40 unidades estocadas em fábrica no primeiro dia, dez unidades serão entregues à demanda e 30 unidades ficarão estocadas em fábrica.
-
-Como o limite de estoque em fábrica para o segundo dia é de 20 unidades, então isso significa que há 10 unidades excedentes em estoque de fábrica. Ou seja, o estoque do primeiro dia, e portanto a produção devem ser diminuídos em 10 unidades.
-
-Ou seja, temos um limite de estoque em fábrica para o primeiro dia deve ser de 30 unidades.
-
-Então estocando 30 unidades em fábrica no primeiro dia, e no segundo dia, como 10 unidades serão entregues para atender à demanda, teremos 20 unidades estocadas.
-
-No terceiro dia, mais 5 unidades serão entregues à demanda e o estoque ficará com 15 unidades.
-
-Já no quato dia, nada será entregue a demanda de forma que teremos um estoque de 15 unidades. Contudo o limite de estocagem para o quarto dia é de 10 unidades, assim teremos 5 unidades excedentes. Ou seja, é necessário que o estoque do primeiro dia seja reduzido em 5 unidades. 
-
-A partir do raciocínio apresentado, podemos verificar a limitação do estoque em fábrica no primeiro dia deve levar em consideração às limitações de recebimento de estoque para cada dia seguinte, respeitando às retrições
-
-\begin{equation}
-	\textrm{UI}_{i} \leq UI_{i1}
-\end{equation}
-
-\begin{equation}
-	\textrm{UI}_{i} \leq UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}
-\end{equation}
-
-Aqui temos, para o produto $p$:
-
-\begin{equation}
-	RL_{i1} \leq 40
-\end{equation}
-
-\begin{equation}
-	RL_{i2} \leq 20 + 10 , RL_{i2} \leq 30
-\end{equation}
-
-\begin{equation}
-	RL_{i3} \leq 15 + (10+5) , RL_{i3} \leq 30
-\end{equation}
-
-\begin{equation}
-	RL_{i4} \leq 10 + (10+5) , RL_{i4} \leq 25
-\end{equation}
-
-então temos que:
-
-\begin{equation}
-	\textrm{UI}_{i} = \min\{UI_{i1}, \min_d\{UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
-\end{equation}
-
-para o estoque total podemos utilizar o mesmo raciocínio, sendo que 
  
 
-\begin{equation}
-	\textrm{I} = \min\{I_{1}, \min_d\{I_{d} + \sum_{i}\sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
-\end{equation}
-
 So, based on calculated values, we built the MPBPTM problem using the equations:
-
-\begin{equation}
-PL_id = UI_{i(d)} - UD_{i} \quad \forall i
-\end{equation}
 
 \begin{equation}
 \textrm{UD}_{i} = \textrm{UD}_{i1} - D_{i1} \quad \forall i
 \end{equation}
 
 \begin{equation}
-	\textrm{I} = \min\{I_{1}, \min_d\{I_{d} + \sum_{i}\sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
+\textrm{I} = \min_{d} \{I_{d}\}
 \end{equation}
 
 \begin{equation}
-	\textrm{UI}_{i} = \min\{UI_{i1}, \min_d\{UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
+	\textrm{UI}_{i} = \min_d\{UI_{id}\}
 \end{equation}
 
 \begin{equation}
@@ -493,21 +399,21 @@ Applying the method for solving the example presented in section \ref{sec:MBPTMP
 
 Como planejamento prévio de produção, temos:
 
-$\textrm{P}_{11} = 1000$,
+$\textrm{P}_{11} = 800$,
 $\textrm{P}_{12} = 0$,
-$\textrm{P}_{21} = 0$,
-$\textrm{P}_{22} = 1500$. \\
+$\textrm{P}_{21} = 2,500$,
+$\textrm{P}_{22} = 1,500$. \\
 
 Como demanda, temos:
 
-$\textrm{UD}_{11} = 1000$,
+$\textrm{UD}_{11} = 1,000$,
 $\textrm{UD}_{12} = 500$,
 $\textrm{UD}_{21} = 500$,
 $\textrm{UD}_{22} = 300$. \\
 
 Distribuindo a produção para atender à demanda de acordo com as restrições em (9) e (10), temos: \\
 
-$D_{11} = 1000$,
+$D_{11} = 800$,
 $D_{12} = 0$,
 $D_{21} = 0$,
 $D_{22} = 300$. \\
@@ -539,6 +445,15 @@ $UI_{11} = 3000 - 1000 + 1000 + 0 =  3000$,
 $UI_{12} = 3000 - 0 + 0 + 0 =  3000$,
 $UI_{21} = 2000 - 0 + 0 + 0 =  2000$,
 $UI_{22} = 2000 - 1500 + 300 + 600 =  1400$. \\
+
+
+$UI_{11} = 4,800 - 800 +  1000 = 4,000$
+$UI_{11} = 4,000 - 2,500 + 500 = 2,000$
+
+Na forma de distribuição planjeda - primeiro para atender demanda, depois para outlets e por último para estoque em fábrica... 
+no planejamento prévio, se eu reduzo o espeço disponível em estoque, do dia anterior para o dia em análise, é porque a produção extra foi suficiente para atender à toda demanda acumulada para o dia e também envio para outlet e sobrou produção para o estoque. Assim só e possível reduzir espaço disponível em estoque, se demanda acumulada não atendida for nula, assim como espaço disponível em outlets nulo para o produto. Portanto fórmula anterior (29) não carrega nenhum sentido.
+
+O mesmo pensamento pode ser considerado no caso do limite de estoque geral. 
 
 $I_{1} = 3000 - 1000 + 1000 + 0 = 3000$,
 $I_{2} = 3000 - 1500 + 300 + 600 = 2400$. \\
