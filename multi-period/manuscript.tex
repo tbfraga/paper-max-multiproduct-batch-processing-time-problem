@@ -424,7 +424,13 @@ então temos que:
 \begin{equation}
 	\textrm{UI}_{i} = \min\{UI_{i1}, \min_d\{UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
 \end{equation}
+
+para o estoque total podemos utilizar o mesmo raciocínio, sendo que 
  
+
+\begin{equation}
+	\textrm{I} = \min\{I_{1}, \min_d\{I_{d} + \sum_{i}\sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
+\end{equation}
 
 So, based on calculated values, we built the MPBPTM problem using the equations:
 
@@ -437,11 +443,11 @@ PL_id = UI_{i(d)} - UD_{i} \quad \forall i
 \end{equation}
 
 \begin{equation}
-\textrm{I} = \min_{d} \{I_{d}\}
+	\textrm{I} = \min\{I_{1}, \min_d\{I_{d} + \sum_{i}\sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
 \end{equation}
 
 \begin{equation}
-\textrm{UI}_{i} = \min_{d} \{UI_{id}\}, \quad \forall{i}
+	\textrm{UI}_{i} = \min\{UI_{i1}, \min_d\{UI_{id} + \sum_{k=2}^{d}\{\textrm{UD}_{ik} - D_{ik}\}\}\}
 \end{equation}
 
 \begin{equation}
