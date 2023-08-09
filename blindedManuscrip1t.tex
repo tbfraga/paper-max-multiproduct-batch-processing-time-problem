@@ -17,7 +17,15 @@
 %% Template article for Elsevier's document class `elsarticle'
 %% with harvard style bibliographic references
 
-\documentclass[authoryear,preprint,12pt]{elsarticle}
+\documentclass[authoryear,manuscript,12pt]{elsarticle}
+\usepackage{setspace}
+\doublespacing
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
 
 %% The `ecrc' package must be called to make the CRC functionality available
 %\usepackage{ecrc}
@@ -48,7 +56,7 @@
 %% for the whole article with \linenumbers.
 %% \usepackage{lineno}
 
-\journal{Applied Mathematical Modelling}
+\journal{Computers \& Industrial Engineering}
 
 \begin{document}
 
@@ -95,19 +103,6 @@
 %%             postcode={},
 %%             state={},
 %%             country={}}
-
-%\author{Tatiana Balbi Fraga, Ítalo Ruan Barbosa de Aquino and Regilda da Costa e Silva Menêzes}
-
-\author{Tatiana Balbi Fraga\corref{cor1}\fnref{label1}}
-\ead{tatiana.balbi@ufpe.br}
-\cortext[cor1]{corresponding author}
-
-\author{Ítalo Ruan Barbosa de Aquino\fnref{label1}}
-\ead{italo_ruan_@hotmail.com}
-
-\author{Regilda da Costa e Silva Menêzes\fnref{label1}}
-\ead{regilda.smenezes@ufpe.br}
-
 %\affiliation[label1]{
 %			 organization={Centro Acadêmico do Agreste - Universidade Federal de Pernambuco},
 %             addressline={Avenida Marielle Franco, Bairro Nova Caruaru},
@@ -125,7 +120,7 @@
            country={Brazil}}
 
 \begin{abstract}
-In the plastic bag extrusion process, it is necessary to determine the optimal processing time for batches formed by different products, which are processed simultaneously by the same extruder, but with different processing rates. The batch processing time must be determined in order to meet a series of known constraints, such as the limitation for the quantity produced for each product and for the quantity produced for the set of all products in the same batch. In this paper we present this problem as a new combinatorial optimization problem named Multi-product Batch Processing Time Maximization (MPBPTM) problem. We also present a mathematical model for the MPBPTM problem and an analytical solution method with polynomial time complexity, which proved to be able to obtain optimal solutions for several benchmarks in a very short time, even for very large instances.
+In the plastic bag extrusion process, it is necessary to determine the optimal processing time for batches formed by different products, which are processed simultaneously by the same extruder, but with different processing rates. The batch processing time must be determined in order to meet a series of known constraints, such as the limitation for the quantity produced for each product and for the quantity produced for the set of all products in the same batch. In this paper we present this problem as a new combinatorial optimization problem named Multi-product Batch Processing Time Maximization (MBPTM) problem. We also present a mathematical model for the MPBPTM problem and an analytical solution method with polynomial time complexity, which proved to be able to obtain optimal solutions for several benchmarks in a very short time, even for very large instances.
 \end{abstract}
 %%Graphical abstract
 \begin{graphicalabstract}
@@ -135,9 +130,9 @@ In the plastic bag extrusion process, it is necessary to determine the optimal p
 %%Research highlights
 \begin{highlights}
 \item brief bibliographic review on multi-product batch problems;
-\item new combinatorial optimization problem named Multi-product Batch Processing Time Maximization (MPBPTM) problem;
-\item linear integer programming model for the MPBPTM problem;
-\item exact optimization method for solving the MPBPTM problem.
+\item Multi-product Batch Processing Time Maximization (MBPTM) problem definition;
+\item linear integer programming model for the MBPTM problem;
+\item exact optimization method for solving the MBPTM problem.
 \end{highlights}
 
 \begin{keyword}
@@ -169,7 +164,7 @@ The multi-product batch processing time maximization problem arises when a set o
 \section{Mathematical model}
 \label{sec:mathModel}
 
-Given that: \\
+Given that:
 
 $\textrm{UD}_i$ is the demand for the product $i$;
 
@@ -193,11 +188,12 @@ $O_i$ amount of product $i$ shipped to factory outlets;
 
 $I_i$ is the amount of product $i$ that will be stored at the factory;
 
-$T$ is the batch processing time. \\
+$T$ is the batch processing time.
 
-We have the problem: \\
+We have the problem:
 
 \begin{equation}
+\label{MBPTMP01}
 max \quad T
 \end{equation}
 
@@ -212,6 +208,7 @@ P_i - D_i - O_i - I_i = 0 \quad \forall i
 \end{equation}
 
 \begin{equation}
+\label{MBPTMP04}
 D_i \leq \textrm{UD}_i \quad \forall i
 \end{equation}
 
@@ -236,14 +233,13 @@ T \leq \textrm{Z}
 \end{equation}
 
 \begin{equation}
+\label{MBPTMP10}
 T, D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
 
-where: \\
+where:
 
 Constraints in (2) relate the quantity produced, $P_i$, to batch processing time $T$. Constraints in (3) calculate the quantity produced, $P_i$, as a function of the primary variables, $D_i$, $O_i$ and $I_i$. Constraints in (4), (5), and (7) state that the quantity delivered to demand, the quantity shipped to the autlets, and the factory-stocked quantity of each product must be less than their respective known limits. Constraints (6) and (8) state that both the sum of product quantities sent to the autlets and the sum of product quantities stocked in the factory must be less than their respective maximum allowed values. The restriction in (9) establishes that there is a batch processing time limit, $\textrm{Z}$, that must be respected. And finally, the constraints in (10) inform the nature of the decision variables.
-
-
 
 \section{Analytical solution}
 \label{sec:analyticalSol}
@@ -254,7 +250,7 @@ It is possible to consider the factory stock and the outlets stock as single sto
 E_i = O_i + I_i
 \end{equation}
 
-where $E_i$ is the sum of the quantity stored at the factory and the quantity sent to the outlets of the product $i$. \\
+where $E_i$ is the sum of the quantity stored at the factory and the quantity sent to the outlets of the product $i$.
 
 So that:
 
@@ -318,7 +314,7 @@ S_i = \textrm{UD}_i - \textrm{p}_i * T' \quad \forall i
 
 Now we consider that the time interval $T''$ will be used for the production of the quantities that will be stored (in the factory and in the outlets), as well as of the demand not met by the production in the first time interval, $S_i$. 
 
-In this case, we can find $T'''$ by solving the second reduced problem:
+In this case, we can find $T''$ by solving the second reduced problem:
 
 \begin{equation}
 max \quad T''
@@ -335,7 +331,7 @@ E_i - S_i \leq \textrm{UO}_i + \textrm{UI}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
-\sum_i {E_i - S_i} \leq \textrm{O} + \textrm{I}
+\sum_i ({E_i - S_i}) \leq \textrm{O} + \textrm{I}
 \end{equation}
 
 \begin{equation}
@@ -358,9 +354,9 @@ T'' \leq \lfloor{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i}\rfloor  \
 T'' \leq \lfloor{(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}}\rfloor
 \end{equation}
 
-So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value. \\
+So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value.
 
-So, the analytical method can be decomposed into 4 steps: \\
+So, the analytical method can be decomposed into 4 steps:
 
 step 1: find $T'$, where:
 \begin{equation}
@@ -382,12 +378,11 @@ step 4: calculate $T$, where:
 \begin{equation}
 T = T' + T''
 \end{equation}
-
 \begin{equation}
 T = \min \{T , \textrm{Z}\}
 \end{equation}
 
-Note that there will be no change in the optimal solution if it is considered to $T'$, a value between 0 and the value found in step 1. Thus it is possible to use a simplification of the method presented, making $T' = 0$. In this case $S_i = \textrm{UD}_i, \forall i$. The simplified version of the method is presented below: \\
+Note that there will be no change in the optimal solution if it is considered to $T'$, a value between 0 and the value found in step 1. Thus it is possible to use a simplification of the method presented, making $T' = 0$. In this case $S_i = \textrm{UD}_i, \forall i$. The simplified version of the method is presented below:
 
 step 1: find $T^*$, where:
 \begin{equation}
@@ -400,66 +395,70 @@ step 2: calculate $T$, where:
 T = \min \{T^* , \textrm{Z}\}
 \end{equation}
 
-It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper. \\
+It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper.
 
-\emph{Solution for the example presented before} \\
+\emph{Solution for the example presented before}
 
-Applying the method for solving the example presented in section \ref{sec:MBPTMP}, we have: \\
+Applying the method for solving the example presented in section \ref{sec:MBPTMP}, we have:
 
-$T' \leq \lfloor{1000 \textrm{ g} / (60 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T' \leq \lfloor{1000 \textrm{ g} / (60 \textrm{ g}/\textrm{min})}\rfloor$ 
 
-$T' \leq 16 \textrm{ min}$ \quad for A \\
+$T' \leq 16 \textrm{ min}$ \quad for A
 
-$T' \leq \lfloor{500 \textrm{ g} / (40 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T' \leq \lfloor{500 \textrm{ g} / (40 \textrm{ g}/\textrm{min})}\rfloor$
 
-$T' \leq 12 \textrm{ min}$ \quad for B \\
+$T' \leq 12 \textrm{ min}$ \quad for B
 
-so: \\
+so:
 
-$T' = 12 \textrm{ min}$ \\
+$T' = 12 \textrm{ min}$ 
 
-Then:\\
+Then:
 
-$S_A = 1000 \textrm{ g} - 12 \textrm{ min} * 60 \textrm{ g}/\textrm{min} = 280 \textrm{ g}$ \\
+$S_A = 1000 \textrm{ g} - 12 \textrm{ min} * 60 \textrm{ g}/\textrm{min} = 280 \textrm{ g}$
 
-$S_B = 500 \textrm{ g} - 12 \textrm{ min} * 40 \textrm{ g}/\textrm{min} = 20 \textrm{ g}$ \\
+$S_B = 500 \textrm{ g} - 12 \textrm{ min} * 40 \textrm{ g}/\textrm{min} = 20 \textrm{ g}$
 
-And so we have: \\
+And so we have:
 
-$T'' \leq \lfloor{(3000 \textrm{ g} + 600 \textrm{ g} + 280 \textrm{ g}) / (60 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T'' \leq \lfloor{(3000 \textrm{ g} + 600 \textrm{ g} + 280 \textrm{ g}) / (60 \textrm{ g}/\textrm{min})}\rfloor$
 
-$T'' \leq 64 \textrm{ min}$ \quad for A \\
+$T'' \leq 64 \textrm{ min}$ \quad for A
 
-$T'' \leq \lfloor{(2000 \textrm{ g} + 600 \textrm{ g} + 20 \textrm{ g}) / (40 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T'' \leq \lfloor{(2000 \textrm{ g} + 600 \textrm{ g} + 20 \textrm{ g}) / (40 \textrm{ g}/\textrm{min})}\rfloor$
 
-$T'' \leq 65 \textrm{ min}$ \quad for B \\
+$T'' \leq 65 \textrm{ min}$ \quad for B
 
-$T'' \leq \lfloor{(1000 \textrm{ g} + 3000 \textrm{ g} + 300 \textrm{ g}) / (100 \textrm{ g}/\textrm{min})}\rfloor$ \\
+$T'' \leq \lfloor{(1000 \textrm{ g} + 3000 \textrm{ g} + 300 \textrm{ g}) / (100 \textrm{ g}/\textrm{min})}\rfloor$
 
-$T'' \leq 43 \textrm{ min}$ \quad for A and B \\
+$T'' \leq 43 \textrm{ min}$ \quad for A and B
 
-So that: \\
+So that:
 
-$T'' = 43 \textrm{ min}$ \\
+$T'' = 43 \textrm{ min}$
 
-So we have: \\
+So we have:
 
-$T = 55 \textrm{ min}$ \\
+$T = 55 \textrm{ min}$
 
-As $T<\textrm{Z}$, then $T = 55 \textrm{ min}$ will certainly be the optimal solution. \\
+As $T<\textrm{Z}$, then $T = 55 \textrm{ min}$ will certainly be the optimal solution.
 
-In this case we will have: \\
+In this case we will have:
 
-$P_A = 3300 \textrm{ g}$ e $P_B=2200 \textrm{ g}$ \\
+$P_A = 3300 \textrm{ g}$ e $P_B=2200 \textrm{ g}$
 
-$D_A = 1000 \textrm{ g}$ e $D_B = 500 \textrm{ g}$ \\
+$D_A = 1000 \textrm{ g}$ e $D_B = 500 \textrm{ g}$
 
-$E_A = 2300 \textrm{ g}$ e $E_B = 1700 \textrm{ g}$ \\
+$E_A = 2300 \textrm{ g}$ e $E_B = 1700 \textrm{ g}$
 
-Note that it is not important to know the values of $O_i$ and $I_i$, $\forall i$, however, after determining a solution, these values can be found by taking a solution from the undetermined system of inequalities:
+Observe that $T$ is not affected by the way production is distributed betwing demand, outlets and factory inventory. However, after determining a solution, the values of $D_i$, $O_i$ and $I_i$, $\forall i$, can be found by taking a solution from the undetermined system of inequalities:
 
 \begin{equation}
-O_i + I_i = E_i \quad \forall i
+D_i + O_i + I_i = P_i \quad \forall i
+\end{equation}
+
+\begin{equation}
+D_i \leq \textrm{UD}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
@@ -467,6 +466,7 @@ O_i \leq \textrm{UO}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
+\label{eq:resO}
 \sum_i{O_i} \leq \textrm{O}
 \end{equation}
 
@@ -475,17 +475,144 @@ I_i \leq \textrm{UI}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
+\label{eq:resI}
 \sum_i{I_i} \leq \textrm{I}
 \end{equation}
 
 \begin{equation}
-O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
+D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
+
+It seems natural that every industry has as a priority to meet demand and that it is preferable to send the remaining production to outlets rather then stock it in the factory. Therefore, we can determine the values of $D_i$, $O_i$ and $I_i$, $\forall i$, simply by defining these priorities for distribution. The following three algorithms can be used to find a complete solution:
+
+\begin{algorithm}
+\caption{Solving MBPTMP | Part 01 - find an optimal $T$ to the problem defined in (\ref{MBPTMP01}) to (\ref{MBPTMP10}).}\label{alg:part01}
+\begin{algorithmic}
+	\Require $\textrm{UD}_i, \textrm{UO}_i, \textrm{UI}_i, \textrm{p}_i, \forall i, \textrm{O}, \textrm{I}, \textrm{Z}$
+	\State $T^* \gets \lfloor{\min \{\min_{\forall i} \{(\textrm{UO}_i + \textrm{UI}_i + \textrm{UD}_i) / \textrm{p}_i\},(\textrm{O} + \textrm{I} + \sum_i \textrm{UD}_i) / \sum_i {\textrm{p}_i}\}}\rfloor$
+	\State $T \gets \min \{T^* , \textrm{Z}\}$
+\State \textbf{Return:} $T$.
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Solving MBPTMP | Part 02 - calculate $D_i$, $O_i$ and $I_i$, $\forall i$, ignoring the restrictions in (\ref{eq:resO}) and (\ref{eq:resI}).}\label{alg:part02}
+\begin{algorithmic}
+	\Require $\textrm{UD}_i, \textrm{UO}_i, \textrm{UI}_i, \textrm{p}_i, \forall i, \textrm{O}, \textrm{I}, \textrm{Z}, T$.
+	\For{all i}
+		\State $E_i \gets T * \textrm{p}_i$
+		\State $D_i \gets \min \{\textrm{UD}_i, E_i\}$
+		\State $E_i \gets E_i - D_i$
+		\State $O_i \gets \min \{\textrm{UO}_i, E_i\}$
+		\State $E_i = E_i - O_i$
+		\State $\textrm{UO}_i = \textrm{UO}_i - O_i$
+		\State $I_i = E_i$
+		\State $\textrm{UI}_i = \textrm{UI}_i - I_i$
+	\EndFor
+	\State $SO = \textrm{O} - \sum_i{O_i}$
+	\State $SI = \textrm{I} - \sum_i{I_i}$
+	\State \textbf{Return:} $D_i, O_i, I_i, E_i, \textrm{UO}_i, \textrm{UI}_i, \forall i, SO, SI$.
+\end{algorithmic}
+\end{algorithm}
+
+After applying algorithm (\ref{alg:part02}), if $SO \geq 0$ and $SI \geq 0$, solution found is an optimal solution. However, if $SO < 0$ or $SI <0$, solution is not yet feasible. But as the solution found to $T$ is feasible to the problem defined in (\ref{MBPTMP01}) to (\ref{MBPTMP10}), we have the following statements:
+
+\begin{lemma}
+Let \(T\) be a optimal solution to the problem defined in (\ref{MBPTMP01}) to (\ref{MBPTMP10}) and $SO$ and $SI$ defined by algorithm (\ref{alg:part02}), so: \\
+
+$if \quad SO < 0 \quad then \quad SI > 0 \quad and  \quad |SO| < SI$
+
+$if \quad SI < 0 \quad then \quad SO > 0 \quad and  \quad |SI| < SO$
+
+\end{lemma}
+
+Therefore it is possible to meet the restrictions in (\ref{eq:resO}) and (\ref{eq:resI}) by applying the agorithm (\ref{alg:part03}).
+
+\begin{algorithm}
+\caption{Solving MBPTMP | Part 03: redistribute production to comply with limitation restrictions for the batch products set.}\label{alg:part03}
+\begin{algorithmic}
+\Require $O_i, I_i, \textrm{UO}_i, \textrm{UI}_i, \forall i, SO, SI$.
+\If{$SO < 0$}
+\For{all $i$}
+	\State $O_i \gets O_i - \min\{ O_i, UI_i, |SO|\}$
+	\State $I_i \gets I_i + \min\{ O_i, UI_i, |SO|\}$
+	\State $SO \gets SO + \min\{ O_i, UI_i, |SO|\}$
+	\If{$SO = 0$}
+		break looping for;
+	\EndIf
+\EndFor
+\EndIf
+
+\If{$SI < 0$}
+\For{all $i$}
+	\State $I_i \gets I_i - \min\{ I_i, UO_i, |SI|\}$
+	\State $O_i \gets O_i + \min\{ I_i, UO_i, |SI|\}$
+	\State $SI \gets SI + \min\{ I_i, UO_i, |SI|\}$
+	\If{$SI = 0$}
+		break looping for;
+	\EndIf
+\EndFor
+\EndIf
+\State \textbf{Return:} $O_i, I_i, \forall i$.
+\end{algorithmic}
+\end{algorithm}
+
+\emph{Solution for the example presented before - determining the values of $D_i$, $O_i$ and $I_i$, $\forall i$.}
+
+$T = 55 \textrm{min}$
+
+$E_A = 55 \textrm{min}* 60 \textrm{ g}/\textrm{min}  = 3,300 \textrm{ g}$
+
+$E_B = 55 \textrm{min}* 40 \textrm{ g}/\textrm{min}  = 2,200 \textrm{ g}$
+
+$D_A = \min \{1,000 \textrm{ g}, \textrm{ } 3,300 \textrm{ g}\} = 1,000 \textrm{ g} $
+
+$D_B = \min \{500 \textrm{ g}, \textrm{ } 2,200 \textrm{ g}\} = 500 \textrm{ g} $
+
+$E_A = 3,300 \textrm{ g} - 1,000 \textrm{ g} = 2,300 \textrm{ g}$
+
+$E_B = 2,200 \textrm{ g} - 500 \textrm{ g} = 1,700 \textrm{ g}$
+
+$O_A = \min \{600 \textrm{ g}, \textrm{ }  2,000 \textrm{ g}\} = 600 \textrm{ g}$
+
+$O_B = \min \{600 \textrm{ g}, \textrm{ }  1,700 \textrm{ g}\} = 600 \textrm{ g}$
+
+$E_A = 2,300 \textrm{ g} - 600 \textrm{ g} = 1,700 \textrm{ g}$
+
+$E_B = 1,700 \textrm{ g} - 600 \textrm{ g} = 1,100 \textrm{ g}$
+
+$\textrm{UO}_A = 600 \textrm{ g} - 600 \textrm{ g} = 0 \textrm{ g}$
+
+$\textrm{UO}_B = 600 \textrm{ g} - 600 \textrm{ g} = 0 \textrm{ g}$
+
+$I_A = 1,700 \textrm{ g}$
+
+$I_B = 1,100 \textrm{ g}$
+
+$\textrm{UI}_A = 3,000 \textrm{ g} - 1,700 \textrm{ g} = 1,300 \textrm{ g}$
+
+$\textrm{UI}_B = 2,000 \textrm{ g} - 1,100 \textrm{ g} = 900 \textrm{ g}$
+
+$SO = 1,000 \textrm{ g} - 1,200 \textrm{ g} = - 200 \textrm{ g}$
+
+$SI = 3,000 \textrm{ g} - 2,800 \textrm{ g} = 200 \textrm{ g}$
+
+\emph{Redistribution}
+
+$O_A = 600 \textrm{ g} - \min \{600 \textrm{ g}, \textrm{ }  1,300 \textrm{ g}, \textrm{ }  200 \textrm{ g}\} = 400 \textrm{ g}$
+
+$I_A = 1,700 \textrm{ g} + \min \{600 \textrm{ g}, \textrm{ }  1,300 \textrm{ g}, \textrm{ }  200 \textrm{ g}\} = 1,900 \textrm{ g}$
+
+$SO = 200 \textrm{ g} + \min \{600 \textrm{ g}, \textrm{ }  1,300 \textrm{ g}, \textrm{ }  200 \textrm{ g}\} = 0 \textrm{ g}$
+
+\emph{Solution}
+
+$T = 55 \textrm{min}; \quad D_A = 1,000 \textrm{ g}; \quad D_B = 500 \textrm{ g}; \quad O_A = 400 \textrm{ g}; \quad O_B = 600 \textrm{ g}; \quad I_A = 1,900 \textrm{ g}; \quad \textrm{and } I_B = 1,100 \textrm{ g}$.
 
 \section{Tests and results}
 \label{sec:results}
 
-To test the developed model and analytical solution method, we created a solver in C++ and a solver in LINGO (https://github.com/tbfraga/COPSolver). The tests were performed on a notebook with an Intel i7 processor. We tested the solvers developed for the benchmarks presented on Tables \ref{tab:MBPTMP001}, \ref{tab:MBPTMP002} and \ref{tab:MBPTMP003}, and for randon benchmarks generated by the following functions: \\
+To test the developed model and analytical solution method, we created a solver in C++ and a solver in LINGO (https://github.com/blinded). The tests were performed on a notebook with an Intel i7 processor. We tested the solvers developed for the benchmarks presented on Tables \ref{tab:MBPTMP001}, \ref{tab:MBPTMP002} and \ref{tab:MBPTMP003}, and for randon benchmarks generated by the following functions: \\
 
 \begin{equation}
 \textrm{p}_i = \textrm{rand}()\%30 + 10
@@ -615,12 +742,12 @@ In this paper we presented the Multi-product Batch Processing Time Maximization 
 \section{CRediT authorship contribution statement} 
 \label{sec:contributions}
 
-T.B. Fraga: Conceptualization, Project administration, Supervision, Software, Methodology, Validation, Formal analysis, Writing – original draft, Writing – review \& editing. Í.R.B. Aquino: Data curation. R.C.S. Menêzes: Data curation.
+Blinded, Project administration, Supervision, Software, Methodology, Validation, Formal analysis, Writing – original draft, Writing – review \& editing. Blinded: Data curation. Blinded: Data curation.
 
 \section{Acknowledgments}
 \label{sec:acknowledgments}
 
-We are enormously grateful to Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) and to Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) for the financial support provided to our projects. We also thank LINDO systems team for the LINGO software license, without which this work would not have been possible and the to the owner of the company in the plastics sector, who allowed us to learn about his company's production process. Finally, we would like to thank Pró-reitoria de Extensão e Cultura da UFPE (PROExC) and the Research Director of Propesqi (Pró-reitoria de Pesquisa e Inovação da UFPE) for their support and recognition of our work, and dear Professors Antônio José da Silva Neto and João Flávio Vieira de Vasconcellos from IPRJ/UERJ, who contributed significantly to the formation of essential skills for the development of our projects. We also thank my co-worker Marcos Luiz Henrique, for having helped by evaluating the mathematical model and solution method proposed in this paper.
+Blinded
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
