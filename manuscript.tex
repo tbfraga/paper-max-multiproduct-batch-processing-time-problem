@@ -170,9 +170,9 @@ In the next sections, a presentation of problem is made along with an applicatio
 \section{Multi-product batch processing time maximization problem}
 \label{sec:MBPTMP}
 
-The multi-product batch processing time maximization problem arises when a set of different products are processed simultaneously in a same production batch. In this problem, it is considered that the quantity produced of each product is directly proportional to the processing time, however, with a different constant of proportionality (production rate) for each product. In addition, there is a maximum quantity allowed for the production of batch products, defined both individually and for the set. The maximum production quantity of each product is mainly defined according to the demand for the product. However, it is still possible to stock the products and/or send them to the outlets. In both cases, there is a stocking/shipping limit for each product and a stocking/shipping limit for the set of products in the batch. Also, there is a time limit available for processing the batch. The problem consists of defining the maximum processing time for the batch, respecting the limitations related to the quantities produced. For a better understanding of the problem, an example is presented below.
+The multi-product batch processing time maximization problem arises when a set of different products are processed simultaneously in a same production batch. In this problem, it is considered that the quantity produced of each product is directly proportional to the processing time, however, with a different constant of proportionality (production rate) for each product. In addition, there is a maximum quantity allowed for the production of batch products, defined both individually and for the set. The maximum production quantity of each product is mainly defined according to the demand for the product. However, it is still possible to stock the products and/or send them to the outlets. In both cases, there is a stocking/shipping limit for each product and a stocking/shipping limit for the set of products in the batch. Also, there is a time limit available for processing the batch. About the production, the industry manager has as priority to meet demand and he prefer to send the remaining production to outlets rather then stock it in the factory. 
 
-\emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the company's inventory policy, a maximum of 3000 g of product A and 2000 g of product B can be stocked at the factory. There is a demand for 1000 g of product A and 500 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product. A maximum time of 100 minutes of this machine can be allocated for processing this batch. What is the maximum possible time for processing this batch ? 
+\emph{Example:} A certain machine must process a batch containing 2 different products: A and B. The production rate of A is 60 g/min while the production rate of B is 40 g/min. The factory has free stock for a maximum of 3000 g of any product, and, according to the company's inventory policy, a maximum of 3000 g of product A and 2000 g of product B can be stocked at the factory. There is a demand for 1000 g of product A and 500 g of product B. The factory has an outlet that has free space in stock of 1000 g, which can receive a maximum of 600 g of each product. A maximum time of 100 minutes of this machine can be allocated for processing this batch. When distributing production the priority is to meet demand, then send to outlets and finily stock in factory. What is the maximum possible time for processing this batch and how production must be distributed ? 
 
 \section{Mathematical model}
 \label{sec:mathModel}
@@ -204,8 +204,6 @@ $I_i$ is the amount of product $i$ that will be stored at the factory;
 $T$ is the batch processing time;
 
 We have the problem:
-
-$UD_i - O_i$ e $O_i - UD_i$
 
 \begin{equation}
 \label{MBPTMP01}
@@ -248,11 +246,11 @@ T \leq \textrm{Z}
 \end{equation}
 
 \begin{equation}
-\min \{\textrm{UD}_i - D_i, O_i + I_i\} = 0
+\min \{\textrm{UD}_i - D_i, O_i + I_i\} = 0 \quad \forall i
 \end{equation}
 
 \begin{equation}
-\min\{\textrm{O} - \sum_i\{ O_i\}, \max\{0, I_i - O_i\}\} = 0
+\min\{\textrm{O} - \sum_i\{ O_i\}, \textrm{UO}_i - O_i, I_i\} = 0 \quad \forall i
 \end{equation}
 
 \begin{equation}
@@ -262,12 +260,14 @@ T, D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
 
 where:
 
-Constraints in (2) relate the quantity produced, $P_i$, to batch processing time $T$. Constraints in (3) calculate the quantity produced, $P_i$, as a function of the primary variables, $D_i$, $O_i$ and $I_i$. Constraints in (4), (5), and (7) state that the quantity delivered to demand, the quantity shipped to the autlets, and the factory-stocked quantity of each product must be less than their respective known limits. Constraints (6) and (8) state that both the sum of product quantities sent to the autlets and the sum of product quantities stocked in the factory must be less than their respective maximum allowed values. The restriction in (9) establishes that there is a batch processing time limit, $\textrm{Z}$, that must be respected. And finally, the constraints in (10) inform the nature of the decision variables.
+Constraints in (2) relate the quantity produced, $P_i$, to batch processing time $T$. Constraints in (3) calculate the quantity produced, $P_i$, as a function of the primary variables, $D_i$, $O_i$ and $I_i$. Constraints in (4), (5), and (7) state that the quantity delivered to demand, the quantity shipped to the autlets, and the factory-stocked quantity of each product must be less than their respective known limits. Constraints (6) and (8) state that both the sum of product quantities sent to the autlets and the sum of product quantities stocked in the factory must be less than their respective maximum allowed values. The restriction in (9) establishes that there is a batch processing time limit, $\textrm{Z}$, that must be respected. As equações em (10) e (11) definem a prioridade de distribuição da produção. And finally, the constraints in (12) inform the nature of the decision variables.
 
 \section{Analytical solution}
 \label{sec:analyticalSol}
 
-It is possible to consider the factory stock and the outlets stock as single stock, so we have:
+To solve the MBPTM problem we will start considering that, despite equations in (10) and (11) define a priority for production distribution, $T$ is not affected by the way production is distributed betwing demand, outlets and factory inventory. So we can find $T$, by ignoring this equations and, after finding $T$ for the relaxed model, use this eqautions for distribute the production based on the defined priorities.
+
+Then, it is possible to consider the factory stock and the outlets stock as single stock, so we have:
 
 \begin{equation}
 E_i = O_i + I_i
@@ -474,7 +474,7 @@ $D_A = 1000 \textrm{ g}$ e $D_B = 500 \textrm{ g}$
 
 $E_A = 2300 \textrm{ g}$ e $E_B = 1700 \textrm{ g}$
 
-Observe that $T$ is not affected by the way production is distributed betwing demand, outlets and factory inventory. However, after determining a solution, the values of $D_i$, $O_i$ and $I_i$, $\forall i$, can be found by taking a solution from the undetermined system of inequalities:
+After determining a solution, the values of $D_i$, $O_i$ and $I_i$, $\forall i$, can be found by taking a solution from the undetermined system of inequalities:
 
 \begin{equation}
 D_i + O_i + I_i = P_i \quad \forall i
@@ -503,10 +503,20 @@ I_i \leq \textrm{UI}_i \quad \forall i
 \end{equation}
 
 \begin{equation}
+\min \{\textrm{UD}_i - D_i, O_i + I_i\} = 0 \quad \forall i
+\end{equation}
+
+\begin{equation}
+\min\{\textrm{O} - \sum_i\{ O_i\}, \textrm{UO}_i - O_i, I_i\} = 0 \quad \forall i
+\end{equation}
+
+\begin{equation}
 D_i, O_i, I_i \in  \mathbb{Z}^+ \quad \forall i
 \end{equation}
 
-It seems natural that every industry has as a priority to meet demand and that it is preferable to send the remaining production to outlets rather then stock it in the factory. Therefore, we can determine the values of $D_i$, $O_i$ and $I_i$, $\forall i$, simply by defining these priorities for distribution. The following three algorithms can be used to find a complete solution:
+We can solve this system and determine the values of $D_i$, $O_i$ and $I_i$, $\forall i$, simply by defining the priorities for distribution. The following three algorithms can be used to find a complete solution.
+
+The algorithm (\ref{alg:part01}) is used for finding an optimimal value fot $T$. 
 
 \begin{algorithm}
 \caption{Solving MBPTMP | Part 01 - find an optimal $T$ to the problem defined in (\ref{MBPTMP01}) to (\ref{MBPTMP10}).}\label{alg:part01}
@@ -517,6 +527,8 @@ It seems natural that every industry has as a priority to meet demand and that i
 \State \textbf{Return:} $T$.
 \end{algorithmic}
 \end{algorithm}
+
+Then an initial production distribution can be done by the algorithm (\ref{alg:part02}). 
 
 \begin{algorithm}
 \caption{Solving MBPTMP | Part 02 - calculate $D_i$, $O_i$ and $I_i$, $\forall i$, ignoring the restrictions in (\ref{eq:resO}) and (\ref{eq:resI}).}\label{alg:part02}
@@ -635,7 +647,7 @@ $T = 55 \textrm{min}; \quad D_A = 1,000 \textrm{ g}; \quad D_B = 500 \textrm{ g}
 \section{Tests and results}
 \label{sec:results}
 
-To test the developed model and analytical solution method, we created a solver in C++ and a solver in LINGO (https://github.com/tbfraga/COPSolver). The tests were performed on a notebook with an Intel i7 processor. We tested the solvers developed for the benchmarks presented on Tables \ref{tab:MBPTMP001}, \ref{tab:MBPTMP002} and \ref{tab:MBPTMP003}, and for randon benchmarks generated by the following functions: \\
+To test the developed model and analytical solution method, we created a solver in C++ (COPSolver, V01\_20230809) and a solver in LINGO (https://github.com/tbfraga/COPSolver). The tests were performed on a notebook with an Intel i7 processor. We tested the solvers developed for the benchmarks presented on Tables \ref{tab:MBPTMP001}, \ref{tab:MBPTMP002} and \ref{tab:MBPTMP003}, and for randon benchmarks generated by the following functions: \\
 
 \begin{equation}
 \textrm{p}_i = \textrm{rand}()\%30 + 10
@@ -686,7 +698,7 @@ $\textrm{UI}_i$ & 3000 & 2000 & 3000 \\
 \cline {1-4} \\
 & & $\textrm{Z}$ & 100 \\
 \end{tabular}
-\caption{Benchmark MPBPTMP 001}
+\caption{Benchmark MBPTM 2}
 \label{tab:MBPTMP001}
 \end{center}
 \end{table}
@@ -703,7 +715,7 @@ $\textrm{UI}_i$ & 3000 & 2000 & 1000 & 3500 \\
 \cline {1-5} \\
 & & & $\textrm{Z}$ & 100 \\
 \end{tabular}
-\caption{Benchmark MPBPTMP 002}
+\caption{Benchmark MBPTM 3}
 \label{tab:MBPTMP002}
 \end{center}
 \end{table}
@@ -721,13 +733,13 @@ $\textrm{UI}_i$ & 3000 & 2000 & 1000 & 800 & 3000 & 1000 & 400 & 300 & 200 & 0 &
 \cline {1-12} \\
 & & & & & & & & & & $\textrm{Z}$ & 100 \\
 \end{tabular}
-\caption{Benchmark MPBPTMP 003}
+\caption{Benchmark MBPTM 10}
 \label{tab:MBPTMP003}
 \end{small}
 \end{center}
 \end{table}
 
-Randomly generated benchmarks were named RMPBPTMP $\textrm{N}$, being $\textrm{N}$ the number of products. Seeking to enable the reproduction of the results, in the computational construction of the benchmarks we used the function srand((unsigned) source), where source is a defined value. To build the results presented in this work, we used source=0. The benchmarks used for the tests performed can be consulted at github.com/blinded.
+Randomly generated benchmarks were named RMBPTM $\textrm{N}$, being $\textrm{N}$ the number of products. Seeking to enable the reproduction of the results, in the computational construction of the benchmarks we used the function srand((unsigned) source), where source is a defined value. To build the results presented in this work, we used source=0. The benchmarks used for the tests performed can be consulted at github.com/blinded.
 
 Table \ref{tab:results} presents the results obtained by applying the analytical method (C++ solver) and the LINGO solver for the solution of the previously presented benchmarks.
 
@@ -737,18 +749,61 @@ Table \ref{tab:results} presents the results obtained by applying the analytical
 \begin{tabular}[c]{l r r r r}
 problem & LINGO solver & time (s) & analytical method & time (s) \\
 \cline {1-5} \\
-MPBPTMP 1 & 55 & 0.04 & 55 & 0.001 \\
-MPBPTMP 2 & 48 & 0.06 & 48 & 0.001 \\
-MPBPTMP 3 & 30 & 0.09 & 30 & 0.001 \\
-RMPBPTMP 20 & 100 & 0.08 & 100 & 0.001 \\
-RMPBPTMP 50 & 98 & 0.12 & 98 & 0.001\\
-RMPBPTMP 100 & 98 & 0.12 & 98 & 0.002\\
-RMPBPTMP 1,000 & 78 & 3.10 & 78 & 0.002\\
-RMPBPTMP 10,000 & 70 & 168.87 & 70 & 0.006 \\
+MBPTM 2 & 55 & 0.04 & 55 & 0.001 \\
+MBPTM 3 & 48 & 0.06 & 48 & 0.001 \\
+MBPTM 10 & 30 & 0.09 & 30 & 0.001 \\
+RMBPTM 20 & 100 & 0.08 & 100 & 0.001 \\
+RMBPTM 50 & 98 & 0.12 & 98 & 0.001\\
+RMBPTM 100 & 98 & 0.12 & 98 & 0.002\\
+RMBPTM 1,000 & 78 & 3.10 & 78 & 0.002\\
+RMBPTM 10,000 & 70 & 168.87 & 70 & 0.006 \\
 \cline {1-5} \\
 \end{tabular}
 \caption{Results obtained with the LINGO solver and the analytical method}
 \label{tab:results}
+\end{footnotesize}
+\end{center}
+\end{table}
+
+Tables (\ref{tab:compResultsMBPTMP2}) and (\ref{tab:compResultsMBPTMP3}) shows the production distribution for MBPTM 3 and 10 found by both COPSolver and LINGO solver. Files containing all results can be found at github.com/blinded.
+
+\begin{table}[h]
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}[c]{l r r r r}
+product & production & delivered (s) & send to outlets & stocked in factory \\
+\cline {1-5} \\
+P1 & 2,880 & 1,000 & 300 & 1,580 \\
+P2 & 1,920 & 500 & 600 & 820 \\
+P3 & 2,400 & 800 & 600 & 1,000 \\
+\cline {1-5} \\
+\end{tabular}
+\caption{Results obtained with the LINGO solver and COPSolver for the MBPTM 3}
+\label{tab:compResultsMBPTMP2}
+\end{footnotesize}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}[c]{l r r r r}
+product & production & delivered (s) & send to outlets & stocked in factory \\
+\cline {1-5} \\
+P1 & 1,800 & 1,000 & 400 & 400 \\
+P2 & 1,200 & 500 & 600 & 100 \\
+P3 & 1,500 & 800 & 600 & 100 \\
+P4 & 1,200 & 500 & 700 & 0 \\
+P5 & 900 & 400 & 300 & 200 \\
+P6 & 1,500 & 500 & 200 & 800 \\
+P7 & 1,800 & 1800 & 0 & 0 \\
+P8 & 300 & 300 & 0 & 0 \\
+P9 & 600 & 500 & 0 & 100 \\
+P10 & 1,200 & 1000 & 200 & 0 \\
+\cline {1-5} \\
+\end{tabular}
+\caption{Results obtained with the LINGO solver and COPSolver for the MBPTM 10}
+\label{tab:compResultsMBPTMP3}
 \end{footnotesize}
 \end{center}
 \end{table}
