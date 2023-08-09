@@ -201,9 +201,11 @@ $O_i$ amount of product $i$ shipped to factory outlets;
 
 $I_i$ is the amount of product $i$ that will be stored at the factory;
 
-$T$ is the batch processing time.
+$T$ is the batch processing time;
 
 We have the problem:
+
+$UD_i - O_i$ e $O_i - UD_i$
 
 \begin{equation}
 \label{MBPTMP01}
@@ -243,6 +245,14 @@ I_i \leq \textrm{UI}_i \quad \forall i
 
 \begin{equation}
 T \leq \textrm{Z}
+\end{equation}
+
+\begin{equation}
+\min \{\textrm{UD}_i - D_i, O_i + I_i\} = 0
+\end{equation}
+
+\begin{equation}
+\min\{\textrm{O} - \sum_i\{ O_i\}, \max\{0, I_i - O_i\}\} = 0
 \end{equation}
 
 \begin{equation}
