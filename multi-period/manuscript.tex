@@ -263,49 +263,44 @@ Uma solução ótima para este problema pode ser construída através de seis et
 \begin{algorithmic}
 	\Require $\textrm{UD}_{id}, \textrm{PO}_{id}, \textrm{UO}_i, \textrm{UI}_i, \forall i; \textrm{O}, \textrm{I}$.
 	
-	\State $I_{1} \gets \textrm{I} - \sum\{\textrm{PO}_{i1}\}$
+	
 	\State $O \gets \textrm{O}$
 	
-	\For{all $i$}
-		\State $D_{i1} \gets \min \{\textrm{UD}_{i1}, \textrm{PO}_{i1}\}$
-		\State $UI_{i1} \gets \textrm{UI}_i - \textrm{PO}_{i1} + D_{i1}$
-		\State $I_{1} \gets I_{1} + D_{i1}$
-		
-		\If{$UI_{i1} < 0$}
-			\State $O_{i1} \gets - UI_{i1}$
-			\State $UO_i \gets \textrm{UO}_i - O_{i1}$
-			\State $O \gets O - O_{i1}$
-			\State $I_{1} \gets I_{1} + O_{i1}$
-			\State $UI_{i1} \gets 0$
-			\If{$UO_i < 0 \textbf{ or } O < 0$}
-			\State \textbf{Return:} planning is not feasible
-			\EndIf
-		\EndIf
-	\EndFor
+	\State $I_{0} \gets \textrm{I}$
 	
-	\For{all $d>1$}
-		
-		\State $I_{d} \gets  I_{d-1} - \sum\{\textrm{PO}_{id}\}$
-	
+	\For{all $d$}
 		\For{all $i$}
-			\State $UD_{id} \gets \sum_{k=1}^{d}\{\textrm{UD}_{ik}\} - \sum_{k=1}^{d-1}\{D_{ik}\}$
-			\State $A_{id} \gets \min\{\sum_{k=1}^{d-1}\{\textrm{PO}_{ik} - D_{ik} - O_{ik}\}\}  + 						\textrm{PO}_{id}$ 
-			\State $D_{id} \gets  \min\{UD_{id}, A_{id}\}$
-			\State $UI_{id} \gets UI_{i(d-1)} - \textrm{PO}_{id} + D_{id}$
+			\If{$d = 1$}
+				\State $UD_{id} \gets \textrm{UD}_{id}$
+				\State $A_{id} \gets \textrm{PO}_{id}$
+				\State $UI_{i(d-1)} \gets \textrm{UI}_i$		
+			\Else
+				\State $UD_{id} \gets \sum_{k=1}^{d}\{\textrm{UD}_{ik}\} - \sum_{k=1}^{d-1}\{D_{ik}\}$
+				\State $A_{id} \gets \min\{\sum_{k=1}^{d-1}\{\textrm{PO}_{ik} - D_{ik} - O_{ik}\}\}  + 									\textrm{PO}_{id}$ 
 			
-			\State $I_{d} \gets I_{d} + D_{id}$
 		
-			\If{$UI_{id} < 0$}
-				\State $O_{i1} = - UI_{i1}$
-				\State $UO_i = UO_i - O_{id}$
-				\State $O \gets O - O_{id}$
-				\State $I_{d} \gets I_{d} + O_{id}$
-				\State $UI_{id} = 0$
-				\If{$UO_i < 0 \textbf{ or } O < 0$}
-					\State \textbf{Return:} planning is not feasible
-				\EndIf
 			\EndIf
 		\EndFor
+		\State
+		
+		\State $D_{id} \gets  \min\{UD_{id}, A_{id}\}$
+		\State $UI_{id} \gets UI_{i(d-1)} - \textrm{PO}_{id} + D_{id}$
+		\State $I_{d} \gets I_{d-1} - \textrm{PO}_{id} + D_{id}$
+		
+		\State
+		
+		\If{$UI_{id} < 0$}
+			\State $O_{i1} \gets - UI_{i1}$
+			\State $UO_i \gets UO_i - O_{id}$
+			\State $O \gets O - O_{id}$
+			\State $I_{d} \gets I_{d} + O_{id}$
+			\State $UI_{id} \gets 0$
+			\State
+			\If{$UO_i < 0 \textbf{ or } O < 0$}
+				\State \textbf{Return:} error: planning is not feasible !
+			\EndIf
+		\EndIf
+		
 	\EndFor
 	
 	\State \textbf{Return:} $O_{id}, UI_{id}, \forall (i, d); I_d, \forall d; UO_i, \forall i; O$.
