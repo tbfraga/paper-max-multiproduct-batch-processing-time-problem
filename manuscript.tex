@@ -265,15 +265,120 @@ Constraints in (2) relate the quantity produced, $P_i$, to batch processing time
 \section{Analytical solution}
 \label{sec:analyticalSol}
 
-To solve the MBPTM problem we will start considering that, despite equations in (10) and (11) define a priority for production distribution, $T$ is not affected by the way production is distributed betwing demand, outlets and factory inventory. So we can find $T$, by ignoring this equations and, after finding $T$ for the relaxed model, solving the production distribution problem based on the defined priorities.
+O método proposto neste artigo para solução do MBPTM problem é composto por duas partes distintas, que são: a) cálculo do tempo máximo de processamento do lote multi-produtos; e b) cálculo e distribuição da produção entre a demanda, os outlets e o estoque em fábrica. A seguir, explicamos cada uma destas partes detalhadamente. 
 
-After relaxation of the problem, it is possible to consider the factory stock and the outlets stock as single stock, so we have:
+\noindent \emph{cálculo do tempo máximo de processamento do lote multi-produtos:}
+
+It is possible to split the batch processing time into two time slots:
 
 \begin{equation}
+T = T' + T''
+\end{equation}
+
+\noindent where $T'$ é o tempo máximo de processamento cuja produção será utilizada exclusivamente para atendimento da demanda.
+
+Neste caso, sendo $D_{i}^{'}$ a quantidade produzida do produto $i$ após $T'$ unidades de tempo de processamento do lote, temos que:
+
+\begin{equation}
+\label{eq:s02}
+D_{i}^{'} - \textrm{p}_i * T'  = 0 \quad \forall i
+\end{equation}
+
+\begin{equation}
+\label{eq:s03}
+D_{i}^{'} \in Z \quad \forall i
+\end{equation}
+
+\noindent e, como $D_{i}^{'} \leq D_i$, $\forall i$, temos que:
+
+\begin{equation}
+\label{eq:s04}
+D_{i}^{'} \leq \textrm{UD}_i\quad \forall i
+\end{equation}
+
+Das equações em (\ref{eq:s02}), (\ref{eq:s03}) e (\ref{eq:s04}), temos:
+
+\begin{equation}
+\label{eq:s05}
+T' \leq \lfloor{\textrm{UD}_i / \textrm{p}_i}\rfloor \quad \forall i
+\end{equation}
+
+E, como desejamos máximo valor para $T'$, de (\ref{eq:s05}), temos:
+
+\begin{equation}
+\label{eq:s06}
+T' = \min_i\{\lfloor{\textrm{UD}_i / \textrm{p}_i}\rfloor\}
+\end{equation}
+
+Observer que poderá haver uma sobra correspondente à demanda não atendida pela produção ocorrida na primeira parte do tempo de processamento do lote, $T'$. Esta sobra, $S_i$, será definida de acordo com as equações em (\ref{eq:s07}):
+
+\begin{equation}
+\label{eq:s07}
+S_i = \textrm{UD}_i - D_{i}^{'} \quad \forall i
+\end{equation}
+
+É possível também considerar que os outlets são uma extensão do estoque da fábrica. Portanto it is possible to consider the factory stock of product $i$ and the outlets stock $i$ as single stock for the product $i$, de forma que:
+
+\begin{equation}
+\label{eq:s08}
 E_i = O_i + I_i
 \end{equation}
 
-where $E_i$ is the sum of the quantity stored at the factory and the quantity sent to the outlets of the product $i$.
+\begin{equation}
+\label{eq:s09}
+E_i \leq \textrm{UO}_i + \textrm{UI}_i
+\end{equation}
+
+\begin{equation}
+\label{eq:s10}
+\sum_i {E_i} \leq \textrm{O} + \textrm{I}
+\end{equation}
+
+\begin{equation}
+\label{eq:s11}
+E_i \in Z \quad \forall i
+\end{equation}
+
+\noindent where $E_i$ is the sum of factory stock and outlets stock of the product $i$.
+
+Como o tempo $T'$ foi utilizado apenas para produção que irá atender à demanda, $T''$ será o restante do tempo de processamento, ou seja, o tempo máximo de processamento utilizado para produção que irá atender à sobra da demanda, será enviada para os outlets e estocada em fábrica. Assim temos que:
+
+\begin{equation}
+\label{eq:s12}
+E_i + S_i - \textrm{p}_i * T''  = 0 \quad \forall i
+\end{equation}
+
+Portanto, das restrições em (\ref{eq:s09}) e equações em (\ref{eq:s12}), temos:
+
+\begin{equation}
+\label{eq:s13}
+T''  \leq (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i \quad \forall i
+\end{equation}
+
+\noindent e, das restrições em (\ref{eq:s10}) e equações em (\ref{eq:s12}), temos:
+
+\begin{equation}
+\label{eq:s14}
+ T'' \leq (\textrm{O} + \textrm{I} + \sum_i S_i) / \sum_i \textrm{p}_i
+\end{equation}
+
+Finalmente, como $T''$ é um valor inteiro e queremos maximizar esse valor, então:
+
+\begin{equation}
+\label{eq:s15}
+ T'' = \lfloor\min\{ \min_i\{ (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\}, (\textrm{O} + \textrm{I} + \sum_i S_i) / \sum_i \textrm{p}_i \}\rfloor
+\end{equation}
+
+\noindent Assim, $T$ pode ser calculado conforme equação em (\ref{eq:s17}):
+
+\begin{equation}
+\label{eq:s17}
+ T = \lfloor \min_i\{{\textrm{UD}_i / \textrm{p}_i}\} + \min\{ \min_i\{ (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\}, (\textrm{O} + \textrm{I} + \sum_i S_i) / \sum_i \textrm{p}_i \}\rfloor
+\end{equation}
+
+To solve the MBPTM problem we will start considering that, despite equations in (10) and (11) define a priority for production distribution, $T$ is not affected by the way production is distributed betwing demand, outlets and factory inventory. So we can find $T$, by ignoring this equations and, after finding $T$ for the relaxed model, solving the production distribution problem based on the defined priorities.
+
+After relaxation of the problem, 
 
 So that:
 
@@ -419,60 +524,6 @@ T = \min \{T^* , \textrm{Z}\}
 \end{equation}
 
 It is probably possible to extend this thinking to the solution of a class of linear optimization problems. However, we will work on this concept in an upcoming paper.
-
-\emph{Solution for the example presented before}
-
-Applying the method for solving the example presented in section \ref{sec:MBPTMP}, we have:
-
-$T' \leq \lfloor{1000 \textrm{ g} / (60 \textrm{ g}/\textrm{min})}\rfloor$ 
-
-$T' \leq 16 \textrm{ min}$ \quad for A
-
-$T' \leq \lfloor{500 \textrm{ g} / (40 \textrm{ g}/\textrm{min})}\rfloor$
-
-$T' \leq 12 \textrm{ min}$ \quad for B
-
-so:
-
-$T' = 12 \textrm{ min}$ 
-
-Then:
-
-$S_A = 1000 \textrm{ g} - 12 \textrm{ min} * 60 \textrm{ g}/\textrm{min} = 280 \textrm{ g}$
-
-$S_B = 500 \textrm{ g} - 12 \textrm{ min} * 40 \textrm{ g}/\textrm{min} = 20 \textrm{ g}$
-
-And so we have:
-
-$T'' \leq \lfloor{(3000 \textrm{ g} + 600 \textrm{ g} + 280 \textrm{ g}) / (60 \textrm{ g}/\textrm{min})}\rfloor$
-
-$T'' \leq 64 \textrm{ min}$ \quad for A
-
-$T'' \leq \lfloor{(2000 \textrm{ g} + 600 \textrm{ g} + 20 \textrm{ g}) / (40 \textrm{ g}/\textrm{min})}\rfloor$
-
-$T'' \leq 65 \textrm{ min}$ \quad for B
-
-$T'' \leq \lfloor{(1000 \textrm{ g} + 3000 \textrm{ g} + 300 \textrm{ g}) / (100 \textrm{ g}/\textrm{min})}\rfloor$
-
-$T'' \leq 43 \textrm{ min}$ \quad for A and B
-
-So that:
-
-$T'' = 43 \textrm{ min}$
-
-So we have:
-
-$T = 55 \textrm{ min}$
-
-As $T<\textrm{Z}$, then $T = 55 \textrm{ min}$ will certainly be the optimal solution.
-
-In this case we will have:
-
-$P_A = 3300 \textrm{ g}$ e $P_B=2200 \textrm{ g}$
-
-$D_A = 1000 \textrm{ g}$ e $D_B = 500 \textrm{ g}$
-
-$E_A = 2300 \textrm{ g}$ e $E_B = 1700 \textrm{ g}$
 
 After determining a solution, the values of $D_i$, $O_i$ and $I_i$, $\forall i$, can be found by taking a solution from the undetermined system of inequalities:
 
