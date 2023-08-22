@@ -366,125 +366,17 @@ Finalmente, como $T''$ é um valor inteiro e queremos maximizar esse valor, ent�
 
 \begin{equation}
 \label{eq:s15}
- T'' = \lfloor\min\{ \min_i\{ (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\}, (\textrm{O} + \textrm{I} + \sum_i S_i) / \sum_i \textrm{p}_i \}\rfloor
+ T'' = \lfloor\min\{\min_i\{ (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\}, (\textrm{O} + \textrm{I} + \sum_i S_i) / \sum_i \textrm{p}_i \}\rfloor
 \end{equation}
 
 \noindent Assim, $T$ pode ser calculado conforme equação em (\ref{eq:s17}):
 
 \begin{equation}
 \label{eq:s17}
- T = \lfloor \min_i\{{\textrm{UD}_i / \textrm{p}_i}\} + \min\{ \min_i\{ (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\}, (\textrm{O} + \textrm{I} + \sum_i S_i) / \sum_i \textrm{p}_i \}\rfloor
+ T = \min\{Z, \lfloor \min_i\{{\textrm{UD}_i / \textrm{p}_i}\} + \min\{ \min_i\{ (\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i\}, (\textrm{O} + \textrm{I} + \sum_i S_i) / \sum_i \textrm{p}_i \}\rfloor\}
 \end{equation}
 
-To solve the MBPTM problem we will start considering that, despite equations in (10) and (11) define a priority for production distribution, $T$ is not affected by the way production is distributed betwing demand, outlets and factory inventory. So we can find $T$, by ignoring this equations and, after finding $T$ for the relaxed model, solving the production distribution problem based on the defined priorities.
-
-After relaxation of the problem, 
-
-So that:
-
-\begin{equation}
-E_i \leq \textrm{UO}_i + \textrm{UI}_i
-\end{equation}
-
-and
-
-\begin{equation}
-\sum_i {E_i} \leq \textrm{O} + \textrm{I}
-\end{equation}
-
-
-It is also possible to split the batch processing time into two time slots:
-
-\begin{equation}
-T = T' + T''
-\end{equation}
-
-and consider that $T'$ is the maximum processing time used only for production that will meet the demand. Thus, we can find $T'$, solving the reduced problem:
-
-\begin{equation}
-max \quad T'
-\end{equation}
-
-$s.t.$
-
-\begin{equation}
-D_i - \textrm{p}_i * T'  = 0 \quad \forall i
-\end{equation}
-
-\begin{equation}
-D_i \leq \textrm{UD}_i \quad \forall i
-\end{equation}
-
-\begin{equation}
-D_i, T' \in  \mathbb{Z}^+ \quad \forall i
-\end{equation}
-
-This reduced problem can be rewritten in the form:
-
-\begin{equation}
-max \quad T'
-\end{equation}
-
-$s.t.$ \\
-
-\begin{equation}
-T'  \leq \lfloor{\textrm{UD}_i / \textrm{p}_i}\rfloor \quad \forall i
-\end{equation}
-
-So we have that $T'$ will be the smallest of the ratios $\lfloor{\textrm{UD}_i / \textrm{p}_i}\rfloor$ of all products. \\
-
-Once we find the value of $T'$, we can calculate the value of unmet demand for each product after $T'$, $S_i$, through the equations in (\ref{eq:unmet1}).
-
-\begin{equation}
-\label{eq:unmet1}
-S_i = \textrm{UD}_i - \textrm{p}_i * T' \quad \forall i
-\end{equation}
-
-Now we consider that the time interval $T''$ will be used for the production of the quantities that will be stored (in the factory and in the outlets), as well as of the demand not met by the production in the first time interval, $S_i$. 
-
-In this case, we can find $T''$ by solving the second reduced problem:
-
-\begin{equation}
-max \quad T''
-\end{equation}
-
-$s.t.$
-
-\begin{equation}
-E_i - \textrm{p}_i * T''  = 0 \quad \forall i
-\end{equation}
-
-\begin{equation}
-E_i - S_i \leq \textrm{UO}_i + \textrm{UI}_i \quad \forall i
-\end{equation}
-
-\begin{equation}
-\sum_i ({E_i - S_i}) \leq \textrm{O} + \textrm{I}
-\end{equation}
-
-\begin{equation}
-E_i, T'' \in  \mathbb{Z}^+ \quad \forall i
-\end{equation}
-
-Again, using a little algebra, we can rewrite this reduced problem in the form:
-
-\begin{equation}
-max \quad T''
-\end{equation}
-
-$s.t.$
-
-\begin{equation}
-T'' \leq \lfloor{(\textrm{UO}_i + \textrm{UI}_i + S_i) / \textrm{p}_i}\rfloor  \quad \forall i
-\end{equation}
-
-\begin{equation}
-T'' \leq \lfloor{(\textrm{O} + \textrm{I} + \sum_i {S_i}) / \sum_i {\textrm{p}_i}}\rfloor
-\end{equation}
-
-So, being $\textrm{N}$ the number of products in the batch, we will have $\textrm{N}+1$ inequalities that limit the value of $T''$ by constants and again $T''$ will be defined by the smallest value.
-
-So, the analytical method can be decomposed into 4 steps:
+So, the analytical method for finding maximum $T$ can be decomposed into 4 steps:
 
 step 1: find $T'$, where:
 \begin{equation}
